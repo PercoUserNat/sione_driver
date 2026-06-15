@@ -1,348 +1,410 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Drivers — Liens par marque</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SI-ONE — Portail Drivers</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      background: #0f1117;
-      color: #e2e8f0;
-      min-height: 100vh;
-      padding: 32px 20px;
-    }
+  :root {
+    --blue: #1153ED;
+    --dark-blue: #03369D;
+    --light-blue: #DFE9FF;
+    --gray-light: #DBE1E8;
+    --gray: #767A8C;
+    --gray-dark: #4B5666;
+    --dark: #131415;
+    --bg: #F2F4F7;
+    --white: #FFFFFF;
+  }
 
-    h1 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #64748b;
-      margin-bottom: 28px;
-    }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--dark);
+    min-height: 100vh;
+  }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 12px;
-      max-width: 1000px;
-    }
+  header {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-light);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
 
-    .card {
-      background: #1e2330;
-      border: 1px solid #2a3145;
-      border-radius: 8px;
-      padding: 16px 18px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      transition: border-color 0.15s, background 0.15s;
-      text-decoration: none;
-      color: inherit;
-    }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
 
-    .card:hover {
-      border-color: #3b82f6;
-      background: #1a2540;
-    }
+  .logo-mark {
+    width: 42px;
+    height: 42px;
+    background: var(--blue);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: -0.02em;
+  }
 
-    .icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 6px;
-      background: #0f1117;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.4rem;
-      flex-shrink: 0;
-    }
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+  }
 
-    .info {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
+  .logo-text .name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--dark-blue);
+    letter-spacing: 0.02em;
+  }
 
-    .brand {
-      font-weight: 600;
-      font-size: 0.95rem;
-      color: #f1f5f9;
-    }
+  .logo-text .sub {
+    font-size: 0.78rem;
+    color: var(--gray);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
 
-    .desc {
-      font-size: 0.78rem;
-      color: #64748b;
-    }
+  .search-wrap {
+    flex: 1;
+    max-width: 360px;
+  }
 
-    .tag {
-      margin-left: auto;
-      font-size: 0.7rem;
-      background: #1a2d4a;
-      color: #3b82f6;
-      border: 1px solid #1e3a5f;
-      border-radius: 4px;
-      padding: 2px 7px;
-      flex-shrink: 0;
-      white-space: nowrap;
-    }
+  #search {
+    width: 100%;
+    padding: 11px 16px;
+    border: 1px solid var(--gray-light);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    background: var(--bg);
+    color: var(--dark);
+    outline: none;
+    transition: border-color 0.15s, background 0.15s;
+  }
 
-    .section-title {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #475569;
-      margin: 28px 0 10px;
-      max-width: 1000px;
-    }
+  #search:focus {
+    border-color: var(--blue);
+    background: var(--white);
+  }
 
-    footer {
-      margin-top: 40px;
-      font-size: 0.75rem;
-      color: #334155;
-      max-width: 1000px;
-    }
-  </style>
+  main {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 36px 40px 60px;
+  }
+
+  .section-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin: 36px 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--gray-light);
+  }
+
+  .section-title:first-of-type {
+    margin-top: 0;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+  }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--gray-light);
+    border-radius: 10px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
+  }
+
+  .card:hover {
+    border-color: var(--blue);
+    box-shadow: 0 4px 14px rgba(17, 83, 237, 0.10);
+    transform: translateY(-1px);
+  }
+
+  .icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: var(--light-blue);
+    color: var(--dark-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+    letter-spacing: -0.02em;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    overflow: hidden;
+  }
+
+  .brand {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--dark);
+  }
+
+  .desc {
+    font-size: 0.78rem;
+    color: var(--gray);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .tag {
+    margin-left: auto;
+    font-size: 0.7rem;
+    font-weight: 600;
+    background: var(--light-blue);
+    color: var(--dark-blue);
+    border-radius: 5px;
+    padding: 3px 8px;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .helper {
+    background: var(--white);
+    border: 1px solid var(--gray-light);
+    border-radius: 10px;
+    padding: 20px 22px;
+    margin-top: 40px;
+    font-size: 0.85rem;
+    color: var(--gray-dark);
+    line-height: 1.6;
+  }
+
+  .helper strong {
+    color: var(--dark-blue);
+  }
+
+  .helper code {
+    background: var(--bg);
+    border: 1px solid var(--gray-light);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 0.78rem;
+    color: var(--dark);
+  }
+
+  .no-result {
+    display: none;
+    text-align: center;
+    color: var(--gray);
+    padding: 30px 0;
+    font-size: 0.9rem;
+  }
+
+  footer {
+    text-align: center;
+    color: var(--gray);
+    font-size: 0.8rem;
+    padding: 24px 0;
+  }
+</style>
 </head>
 <body>
 
-<h1>🔧 Drivers — Liens par marque</h1>
-
-<div class="section-title">PC Portables & Fixes (grand public)</div>
-<div class="grid">
-
-  <a class="card" href="https://www.dell.com/support/home/fr-fr" target="_blank">
-    <div class="icon">🖥️</div>
-    <div class="info">
-      <span class="brand">Dell</span>
-      <span class="desc">Numéro de série (Service Tag) ou détection auto</span>
+<header>
+  <div class="logo">
+    <div class="logo-mark">SI</div>
+    <div class="logo-text">
+      <span class="name">SI-ONE</span>
+      <span class="sub">Portail Drivers — Support technique</span>
     </div>
-    <span class="tag">S/N</span>
-  </a>
+  </div>
+  <div class="search-wrap">
+    <input type="text" id="search" placeholder="Rechercher une marque (ex: Dell, NVIDIA, HP...)" />
+  </div>
+</header>
 
-  <a class="card" href="https://support.hp.com/fr-fr/drivers" target="_blank">
-    <div class="icon">🖨️</div>
-    <div class="info">
-      <span class="brand">HP</span>
-      <span class="desc">Numéro de série ou détection auto du produit</span>
-    </div>
-    <span class="tag">S/N</span>
-  </a>
+<main>
 
-  <a class="card" href="https://pcsupport.lenovo.com/fr/fr/products/laptops-and-netbooks" target="_blank">
-    <div class="icon">💼</div>
-    <div class="info">
-      <span class="brand">Lenovo</span>
-      <span class="desc">Numéro de série ou détection auto</span>
-    </div>
-    <span class="tag">S/N</span>
-  </a>
+  <div class="section-title">PC Portables &amp; Fixes — Grand public</div>
+  <div class="grid" data-group>
 
-  <a class="card" href="https://www.asus.com/fr/support/" target="_blank">
-    <div class="icon">⚡</div>
-    <div class="info">
-      <span class="brand">ASUS</span>
-      <span class="desc">Numéro de série ou modèle exact</span>
-    </div>
-    <span class="tag">S/N</span>
-  </a>
+    <a class="card" data-brand="dell" href="https://www.dell.com/support/home/fr-fr" target="_blank">
+      <div class="icon">DE</div>
+      <div class="info">
+        <span class="brand">Dell</span>
+        <span class="desc">Service Tag ou détection automatique</span>
+      </div>
+      <span class="tag">N° série</span>
+    </a>
 
-  <a class="card" href="https://www.acer.com/fr-fr/support" target="_blank">
-    <div class="icon">🔷</div>
-    <div class="info">
-      <span class="brand">Acer</span>
-      <span class="desc">Numéro de série (SNID) ou modèle</span>
-    </div>
-    <span class="tag">S/N</span>
-  </a>
+    <a class="card" data-brand="hp" href="https://support.hp.com/fr-fr/drivers" target="_blank">
+      <div class="icon">HP</div>
+      <div class="info">
+        <span class="brand">HP</span>
+        <span class="desc">Numéro de série ou détection auto</span>
+      </div>
+      <span class="tag">N° série</span>
+    </a>
 
-  <a class="card" href="https://support.microsoft.com/fr-fr/surface" target="_blank">
-    <div class="icon">🪟</div>
-    <div class="info">
-      <span class="brand">Microsoft Surface</span>
-      <span class="desc">Par modèle Surface (Pro, Laptop, Go…)</span>
-    </div>
-    <span class="tag">Modèle</span>
-  </a>
+    <a class="card" data-brand="lenovo" href="https://pcsupport.lenovo.com/fr/fr/products/laptops-and-netbooks" target="_blank">
+      <div class="icon">LE</div>
+      <div class="info">
+        <span class="brand">Lenovo</span>
+        <span class="desc">Numéro de série ou détection auto</span>
+      </div>
+      <span class="tag">N° série</span>
+    </a>
 
-  <a class="card" href="https://www.toshiba-lifestyle.com/fr/support" target="_blank">
-    <div class="icon">🔵</div>
-    <div class="info">
-      <span class="brand">Toshiba / Dynabook</span>
-      <span class="desc">Numéro de modèle ou numéro de série</span>
-    </div>
-    <span class="tag">S/N</span>
-  </a>
+    <a class="card" data-brand="asus" href="https://www.asus.com/fr/support/" target="_blank">
+      <div class="icon">AS</div>
+      <div class="info">
+        <span class="brand">ASUS</span>
+        <span class="desc">Numéro de série ou modèle exact</span>
+      </div>
+      <span class="tag">N° série</span>
+    </a>
 
-  <a class="card" href="https://www.fujitsu.com/fr/support/products/computing/" target="_blank">
-    <div class="icon">🟠</div>
-    <div class="info">
-      <span class="brand">Fujitsu</span>
-      <span class="desc">Numéro de modèle (Lifebook, Stylistic…)</span>
-    </div>
-    <span class="tag">Modèle</span>
-  </a>
+    <a class="card" data-brand="acer" href="https://www.acer.com/fr-fr/support" target="_blank">
+      <div class="icon">AC</div>
+      <div class="info">
+        <span class="brand">Acer</span>
+        <span class="desc">Numéro de série (SNID) ou modèle</span>
+      </div>
+      <span class="tag">N° série</span>
+    </a>
 
-  <a class="card" href="https://www.samsung.com/fr/support/" target="_blank">
-    <div class="icon">🌀</div>
-    <div class="info">
-      <span class="brand">Samsung</span>
-      <span class="desc">Numéro de modèle (Galaxy Book…)</span>
-    </div>
-    <span class="tag">Modèle</span>
-  </a>
+    <a class="card" data-brand="microsoft surface" href="https://support.microsoft.com/fr-fr/surface" target="_blank">
+      <div class="icon">MS</div>
+      <div class="info">
+        <span class="brand">Microsoft Surface</span>
+        <span class="desc">Par modèle Surface (Pro, Laptop, Go...)</span>
+      </div>
+      <span class="tag">Modèle</span>
+    </a>
 
-  <a class="card" href="https://consumer.huawei.com/fr/support/" target="_blank">
-    <div class="icon">🌸</div>
-    <div class="info">
-      <span class="brand">Huawei / MateBook</span>
-      <span class="desc">Numéro de modèle ou numéro de série</span>
-    </div>
-    <span class="tag">S/N</span>
-  </a>
+    <a class="card" data-brand="toshiba" href="https://www.toshiba-lifestyle.com/fr/support" target="_blank">
+      <div class="icon">TO</div>
+      <div class="info">
+        <span class="brand">Toshiba</span>
+        <span class="desc">Numéro de modèle ou numéro de série</span>
+      </div>
+      <span class="tag">N° série</span>
+    </a>
 
-  <a class="card" href="https://www.sony.fr/support/" target="_blank">
-    <div class="icon">🎯</div>
-    <div class="info">
-      <span class="brand">Sony (VAIO)</span>
-      <span class="desc">Numéro de modèle ou numéro de série</span>
-    </div>
-    <span class="tag">S/N</span>
-  </a>
+    <a class="card" data-brand="fujitsu" href="https://www.fujitsu.com/fr/support/products/computing/" target="_blank">
+      <div class="icon">FU</div>
+      <div class="info">
+        <span class="brand">Fujitsu</span>
+        <span class="desc">Numéro de modèle (Lifebook, Stylistic...)</span>
+      </div>
+      <span class="tag">Modèle</span>
+    </a>
 
-  <a class="card" href="https://www.packardbell.com/pb/fr/FR/content/drivers" target="_blank">
-    <div class="icon">🔔</div>
-    <div class="info">
-      <span class="brand">Packard Bell</span>
-      <span class="desc">Numéro de modèle ou SNID</span>
-    </div>
-    <span class="tag">Modèle</span>
-  </a>
+  </div>
 
-</div>
+  <div class="section-title">Composants — GPU, chipset, réseau</div>
+  <div class="grid" data-group>
 
-<div class="section-title">Gaming / Marques orientées perfs</div>
-<div class="grid">
+    <a class="card" data-brand="nvidia" href="https://www.nvidia.com/fr-fr/drivers/" target="_blank">
+      <div class="icon">NV</div>
+      <div class="info">
+        <span class="brand">NVIDIA</span>
+        <span class="desc">Pilotes GPU — par série / modèle / OS</span>
+      </div>
+      <span class="tag">GPU</span>
+    </a>
 
-  <a class="card" href="https://rog.asus.com/fr/support/" target="_blank">
-    <div class="icon">🎮</div>
-    <div class="info">
-      <span class="brand">ASUS ROG / TUF</span>
-      <span class="desc">Numéro de série ou modèle exact</span>
-    </div>
-    <span class="tag">S/N</span>
-  </a>
+    <a class="card" data-brand="amd ati" href="https://www.amd.com/fr/support/download/drivers.html" target="_blank">
+      <div class="icon">AM</div>
+      <div class="info">
+        <span class="brand">AMD / ATI</span>
+        <span class="desc">Pilotes GPU + chipset Ryzen</span>
+      </div>
+      <span class="tag">GPU / CPU</span>
+    </a>
 
-  <a class="card" href="https://www.msi.com/support" target="_blank">
-    <div class="icon">🐉</div>
-    <div class="info">
-      <span class="brand">MSI</span>
-      <span class="desc">Numéro de série ou modèle</span>
-    </div>
-    <span class="tag">S/N</span>
-  </a>
+    <a class="card" data-brand="intel" href="https://www.intel.com/content/www/fr/fr/support/detect.html" target="_blank">
+      <div class="icon">IN</div>
+      <div class="info">
+        <span class="brand">Intel</span>
+        <span class="desc">Détection auto ou recherche par produit</span>
+      </div>
+      <span class="tag">CPU / Réseau</span>
+    </a>
 
-  <a class="card" href="https://www.razer.com/fr-fr/support" target="_blank">
-    <div class="icon">🐍</div>
-    <div class="info">
-      <span class="brand">Razer (Blade)</span>
-      <span class="desc">Numéro de série ou modèle</span>
-    </div>
-    <span class="tag">S/N</span>
-  </a>
+    <a class="card" data-brand="realtek" href="https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software" target="_blank">
+      <div class="icon">RT</div>
+      <div class="info">
+        <span class="brand">Realtek</span>
+        <span class="desc">Pilotes réseau et audio</span>
+      </div>
+      <span class="tag">Réseau / Audio</span>
+    </a>
 
-  <a class="card" href="https://support.gigabyte.com/Product/Driver" target="_blank">
-    <div class="icon">🔩</div>
-    <div class="info">
-      <span class="brand">Gigabyte / Aorus</span>
-      <span class="desc">Numéro de modèle</span>
-    </div>
-    <span class="tag">Modèle</span>
-  </a>
+  </div>
 
-  <a class="card" href="https://support.system76.com/" target="_blank">
-    <div class="icon">🐧</div>
-    <div class="info">
-      <span class="brand">System76</span>
-      <span class="desc">Modèle (Linux-first, drivers via firmware)</span>
-    </div>
-    <span class="tag">Modèle</span>
-  </a>
+  <p class="no-result" id="noResult">Aucune marque ne correspond à votre recherche.</p>
 
-  <a class="card" href="https://www.alienware.com/fr-fr/support.html" target="_blank">
-    <div class="icon">👽</div>
-    <div class="info">
-      <span class="brand">Alienware (Dell)</span>
-      <span class="desc">Service Tag Dell / détection auto</span>
-    </div>
-    <span class="tag">S/N</span>
-  </a>
+  <div class="helper">
+    <strong>Trouver le numéro de série :</strong> étiquette sous le PC ou dans la batterie, BIOS/UEFI, ou via commande :
+    <code>wmic bios get serialnumber</code> &nbsp;/&nbsp; <code>Get-WmiObject Win32_BIOS</code>
+  </div>
 
-</div>
+</main>
 
-<div class="section-title">Composants (GPU, chipset, réseau…)</div>
-<div class="grid">
+<footer>SI-ONE — Usage interne technicien</footer>
 
-  <a class="card" href="https://www.nvidia.com/fr-fr/drivers/" target="_blank">
-    <div class="icon">🟢</div>
-    <div class="info">
-      <span class="brand">NVIDIA</span>
-      <span class="desc">Pilotes GPU — par série / modèle / OS</span>
-    </div>
-    <span class="tag">GPU</span>
-  </a>
+<script>
+  const search = document.getElementById('search');
+  const cards = document.querySelectorAll('.card');
+  const groups = document.querySelectorAll('[data-group]');
+  const sectionTitles = document.querySelectorAll('.section-title');
+  const noResult = document.getElementById('noResult');
 
-  <a class="card" href="https://www.amd.com/fr/support/download/drivers.html" target="_blank">
-    <div class="icon">🔴</div>
-    <div class="info">
-      <span class="brand">AMD / ATI</span>
-      <span class="desc">Pilotes GPU + chipset Ryzen</span>
-    </div>
-    <span class="tag">GPU/CPU</span>
-  </a>
+  search.addEventListener('input', () => {
+    const term = search.value.trim().toLowerCase();
+    let totalVisible = 0;
 
-  <a class="card" href="https://www.intel.com/content/www/fr/fr/support/detect.html" target="_blank">
-    <div class="icon">🔵</div>
-    <div class="info">
-      <span class="brand">Intel</span>
-      <span class="desc">Détection auto ou recherche par produit</span>
-    </div>
-    <span class="tag">CPU/réseau</span>
-  </a>
+    groups.forEach((group, i) => {
+      let visibleInGroup = 0;
+      group.querySelectorAll('.card').forEach(card => {
+        const match = card.dataset.brand.includes(term);
+        card.style.display = match ? 'flex' : 'none';
+        if (match) visibleInGroup++;
+      });
+      sectionTitles[i].style.display = visibleInGroup > 0 ? 'block' : 'none';
+      totalVisible += visibleInGroup;
+    });
 
-  <a class="card" href="https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software" target="_blank">
-    <div class="icon">🌐</div>
-    <div class="info">
-      <span class="brand">Realtek</span>
-      <span class="desc">Pilotes réseau & audio Realtek</span>
-    </div>
-    <span class="tag">Réseau/Audio</span>
-  </a>
-
-</div>
-
-<div class="section-title">Outil universel</div>
-<div class="grid">
-
-  <a class="card" href="https://www.snappy-driver-installer.org/" target="_blank">
-    <div class="icon">🧰</div>
-    <div class="info">
-      <span class="brand">Snappy Driver Installer Origin</span>
-      <span class="desc">Détection + install auto de tous les drivers offline</span>
-    </div>
-    <span class="tag">Universel</span>
-  </a>
-
-</div>
-
-<footer>
-  Clic → onglet du fabricant → saisir S/N ou modèle → télécharger le driver voulu.<br>
-  S/N trouvable : étiquette sous le PC · BIOS · <code>wmic bios get serialnumber</code> · <code>Get-WmiObject Win32_BIOS</code>
-</footer>
+    noResult.style.display = totalVisible === 0 ? 'block' : 'none';
+  });
+</script>
 
 </body>
 </html>
