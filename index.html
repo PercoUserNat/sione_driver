@@ -3,406 +3,912 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>SI-ONE — Portail Drivers</title>
+<title>SI-ONE — Portail Logiciels & Outils</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
   :root {
-    --blue: #1153ED;
-    --dark-blue: #03369D;
-    --light-blue: #DFE9FF;
-    --gray-light: #DBE1E8;
-    --gray: #767A8C;
-    --gray-dark: #4B5666;
-    --dark: #131415;
-    --bg: #F2F4F7;
-    --white: #FFFFFF;
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --primary-light: #dbeafe;
+    --secondary: #64748b;
+    --secondary-dark: #475569;
+    --secondary-light: #f1f5f9;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --bg: #f8fafc;
+    --bg-dark: #f1f5f9;
+    --white: #ffffff;
+    --text: #1e293b;
+    --text-light: #64748b;
+    --border: #e2e8f0;
+    --shadow: rgba(0, 0, 0, 0.1);
+    --sidebar-width: 280px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   body {
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background: var(--bg);
-    color: var(--dark);
+    color: var(--text);
     min-height: 100vh;
+    display: flex;
+    overflow-x: hidden;
   }
 
-  header {
+  /* Sidebar */
+  .sidebar {
+    width: var(--sidebar-width);
     background: var(--white);
-    border-bottom: 1px solid var(--gray-light);
-    padding: 28px 40px;
+    border-right: 1px solid var(--border);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 100;
+    overflow-y: auto;
+    box-shadow: 2px 0 10px var(--shadow);
+    transform: translateX(0);
+    transition: var(--transition);
+  }
+
+  .sidebar.collapsed {
+    transform: translateX(-90%);
+  }
+
+  .sidebar-toggle {
+    position: absolute;
+    top: 20px;
+    right: -40px;
+    width: 40px;
+    height: 40px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-left: none;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    justify-content: center;
+    box-shadow: 2px 0 10px var(--shadow);
+    transition: var(--transition);
+    z-index: 101;
+  }
+
+  .sidebar.collapsed .sidebar-toggle {
+    right: -40px;
+    transform: rotate(180deg);
+  }
+
+  .sidebar-toggle::after {
+    content: '←';
+    font-size: 1.2rem;
+    color: var(--secondary);
+    transition: var(--transition);
+  }
+
+  .sidebar.collapsed .sidebar-toggle::after {
+    transform: rotate(180deg);
+  }
+
+  .sidebar-header {
+    padding: 24px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
     gap: 12px;
   }
 
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-
-  .logo-mark {
-    width: 42px;
-    height: 42px;
-    background: var(--blue);
+  .sidebar-header .logo {
+    width: 40px;
+    height: 40px;
+    background: var(--primary);
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--white);
     font-weight: 700;
-    font-size: 1.2rem;
-    letter-spacing: -0.02em;
+    font-size: 1.1rem;
   }
 
-  .logo-text {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.15;
+  .sidebar-header .title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
   }
 
-  .logo-text .name {
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: var(--dark-blue);
-    letter-spacing: 0.02em;
+  .sidebar-header .subtitle {
+    font-size: 0.75rem;
+    color: var(--text-light);
   }
 
-  .logo-text .sub {
-    font-size: 0.78rem;
-    color: var(--gray);
+  .sidebar-nav {
+    padding: 16px 0;
+  }
+
+  .sidebar-nav a {
+    display: block;
+    padding: 12px 24px;
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 0.9rem;
     font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    transition: var(--transition);
+    border-left: 3px solid transparent;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sidebar-nav a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.05));
+    transition: var(--transition);
+  }
+
+  .sidebar-nav a:hover {
+    color: var(--primary);
+    background: var(--primary-light);
+    border-left-color: var(--primary);
+  }
+
+  .sidebar-nav a:hover::before {
+    background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.1));
+  }
+
+  /* Main Content */
+  .main-content {
+    flex: 1;
+    margin-left: var(--sidebar-width);
+    transition: var(--transition);
+  }
+
+  .sidebar.collapsed ~ .main-content {
+    margin-left: calc(var(--sidebar-width) * 0.1);
+  }
+
+  header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    box-shadow: 0 2px 5px var(--shadow);
+  }
+
+  .header-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .header-logo .logo-mark {
+    width: 40px;
+    height: 40px;
+    background: var(--primary);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  .header-logo .title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .header-logo .subtitle {
+    font-size: 0.75rem;
+    color: var(--text-light);
   }
 
   .search-wrap {
     flex: 1;
-    max-width: 360px;
+    max-width: 400px;
+    margin: 0 20px;
   }
 
   #search {
     width: 100%;
-    padding: 11px 16px;
-    border: 1px solid var(--gray-light);
+    padding: 12px 16px;
+    border: 1px solid var(--border);
     border-radius: 8px;
     font-size: 0.9rem;
-    background: var(--bg);
-    color: var(--dark);
+    background: var(--bg-dark);
+    color: var(--text);
     outline: none;
-    transition: border-color 0.15s, background 0.15s;
+    transition: var(--transition);
   }
 
   #search:focus {
-    border-color: var(--blue);
+    border-color: var(--primary);
     background: var(--white);
+    box-shadow: 0 0 0 3px var(--primary-light);
   }
 
   main {
-    max-width: 1180px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 36px 40px 60px;
+    padding: 30px 40px;
+  }
+
+  .page-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+
+  .page-subtitle {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    margin-bottom: 30px;
+  }
+
+  /* Sections */
+  .section {
+    margin-bottom: 50px;
+    scroll-margin-top: 20px;
   }
 
   .section-title {
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--gray);
-    margin: 36px 0 14px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--gray-light);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
   }
 
-  .section-title:first-of-type {
-    margin-top: 0;
+  .section-title::before {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: var(--primary);
+    border-radius: 0 0 8px 0;
   }
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
   }
 
   .card {
     background: var(--white);
-    border: 1px solid var(--gray-light);
-    border-radius: 10px;
-    padding: 16px 18px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 14px;
     text-decoration: none;
     color: inherit;
-    transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.03) 0%, rgba(100, 116, 139, 0.02) 100%);
+    opacity: 0;
+    transition: var(--transition);
   }
 
   .card:hover {
-    border-color: var(--blue);
-    box-shadow: 0 4px 14px rgba(17, 83, 237, 0.10);
-    transform: translateY(-1px);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    border-color: var(--primary-light);
   }
 
-  .icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    background: var(--light-blue);
-    color: var(--dark-blue);
+  .card:hover::before {
+    opacity: 1;
+  }
+
+  .card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: var(--primary-light);
+    color: var(--primary);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 700;
-    font-size: 0.95rem;
+    font-size: 1.2rem;
     flex-shrink: 0;
-    letter-spacing: -0.02em;
+    transition: var(--transition);
   }
 
-  .info {
+  .card:hover .card-icon {
+    background: var(--primary);
+    color: var(--white);
+    transform: scale(1.05);
+  }
+
+  .card-info {
     display: flex;
     flex-direction: column;
-    gap: 2px;
-    overflow: hidden;
+    gap: 4px;
+    flex: 1;
+    min-width: 0;
   }
 
-  .brand {
+  .card-title {
     font-weight: 600;
     font-size: 0.95rem;
-    color: var(--dark);
-  }
-
-  .desc {
-    font-size: 0.78rem;
-    color: var(--gray);
+    color: var(--text);
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
   }
 
-  .tag {
-    margin-left: auto;
+  .card-desc {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .card-tag {
+    margin-top: 8px;
     font-size: 0.7rem;
     font-weight: 600;
-    background: var(--light-blue);
-    color: var(--dark-blue);
-    border-radius: 5px;
-    padding: 3px 8px;
+    background: var(--secondary-light);
+    color: var(--secondary);
+    border-radius: 6px;
+    padding: 4px 10px;
+    display: inline-block;
+  }
+
+  .btn {
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-left: auto;
     flex-shrink: 0;
-    white-space: nowrap;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
   }
 
-  .helper {
-    background: var(--white);
-    border: 1px solid var(--gray-light);
-    border-radius: 10px;
-    padding: 20px 22px;
-    margin-top: 40px;
-    font-size: 0.85rem;
-    color: var(--gray-dark);
-    line-height: 1.6;
+  .btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
   }
 
-  .helper strong {
-    color: var(--dark-blue);
+  .btn:active {
+    transform: translateY(0);
   }
 
-  .helper code {
-    background: var(--bg);
-    border: 1px solid var(--gray-light);
-    border-radius: 4px;
-    padding: 2px 6px;
-    font-size: 0.78rem;
-    color: var(--dark);
+  .btn::after {
+    content: '↓';
+    font-size: 0.8em;
   }
 
   .no-result {
     display: none;
     text-align: center;
-    color: var(--gray);
-    padding: 30px 0;
-    font-size: 0.9rem;
+    color: var(--text-light);
+    padding: 40px 0;
+    font-size: 1rem;
+    background: var(--white);
+    border-radius: 12px;
+    border: 1px dashed var(--border);
+    margin: 20px 0;
+  }
+
+  .no-result.show {
+    display: block;
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   footer {
     text-align: center;
-    color: var(--gray);
+    color: var(--text-light);
     font-size: 0.8rem;
     padding: 24px 0;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    :root {
+      --sidebar-width: 240px;
+    }
+    .main-content {
+      padding: 20px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .sidebar {
+      transform: translateX(-90%);
+    }
+    .sidebar.collapsed {
+      transform: translateX(0);
+    }
+    .sidebar-toggle {
+      right: 20px;
+      top: 80px;
+      z-index: 101;
+    }
+    .sidebar.collapsed .sidebar-toggle {
+      right: 20px;
+      transform: rotate(0deg);
+    }
+    .sidebar.collapsed .sidebar-toggle::after {
+      content: '←';
+      transform: rotate(0deg);
+    }
+    .main-content {
+      margin-left: 0;
+    }
+    header {
+      flex-direction: column;
+      gap: 15px;
+      padding: 15px 20px;
+    }
+    .search-wrap {
+      max-width: 100%;
+      margin: 0;
+    }
+    .grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="logo">
-    <div class="logo-mark">SI</div>
-    <div class="logo-text">
-      <span class="name">SI-ONE</span>
-      <span class="sub">Portail Drivers — Support technique</span>
+  <div class="sidebar collapsed">
+    <div class="sidebar-toggle"></div>
+    <div class="sidebar-header">
+      <div class="logo">SI</div>
+      <div>
+        <div class="title">SI-ONE</div>
+        <div class="subtitle">Portail Logiciels</div>
+      </div>
     </div>
-  </div>
-  <div class="search-wrap">
-    <input type="text" id="search" placeholder="Rechercher une marque (ex: Dell, NVIDIA, HP...)" />
-  </div>
-</header>
-
-<main>
-
-  <div class="section-title">PC Portables &amp; Fixes — Grand public</div>
-  <div class="grid" data-group>
-
-    <a class="card" data-brand="dell" href="https://www.dell.com/support/home/fr-fr" target="_blank">
-      <div class="icon">DE</div>
-      <div class="info">
-        <span class="brand">Dell</span>
-        <span class="desc">Service Tag ou détection automatique</span>
-      </div>
-      <span class="tag">N° série</span>
-    </a>
-
-    <a class="card" data-brand="hp" href="https://support.hp.com/fr-fr/drivers" target="_blank">
-      <div class="icon">HP</div>
-      <div class="info">
-        <span class="brand">HP</span>
-        <span class="desc">Numéro de série ou détection auto</span>
-      </div>
-      <span class="tag">N° série</span>
-    </a>
-
-    <a class="card" data-brand="lenovo" href="https://pcsupport.lenovo.com/fr/fr/products/laptops-and-netbooks" target="_blank">
-      <div class="icon">LE</div>
-      <div class="info">
-        <span class="brand">Lenovo</span>
-        <span class="desc">Numéro de série ou détection auto</span>
-      </div>
-      <span class="tag">N° série</span>
-    </a>
-
-    <a class="card" data-brand="asus" href="https://www.asus.com/fr/support/" target="_blank">
-      <div class="icon">AS</div>
-      <div class="info">
-        <span class="brand">ASUS</span>
-        <span class="desc">Numéro de série ou modèle exact</span>
-      </div>
-      <span class="tag">N° série</span>
-    </a>
-
-    <a class="card" data-brand="acer" href="https://www.acer.com/fr-fr/support" target="_blank">
-      <div class="icon">AC</div>
-      <div class="info">
-        <span class="brand">Acer</span>
-        <span class="desc">Numéro de série (SNID) ou modèle</span>
-      </div>
-      <span class="tag">N° série</span>
-    </a>
-
-    <a class="card" data-brand="microsoft surface" href="https://support.microsoft.com/fr-fr/surface" target="_blank">
-      <div class="icon">MS</div>
-      <div class="info">
-        <span class="brand">Microsoft Surface</span>
-        <span class="desc">Par modèle Surface (Pro, Laptop, Go...)</span>
-      </div>
-      <span class="tag">Modèle</span>
-    </a>
-
-    <a class="card" data-brand="toshiba" href="https://www.toshiba-lifestyle.com/fr/support" target="_blank">
-      <div class="icon">TO</div>
-      <div class="info">
-        <span class="brand">Toshiba</span>
-        <span class="desc">Numéro de modèle ou numéro de série</span>
-      </div>
-      <span class="tag">N° série</span>
-    </a>
-
-    <a class="card" data-brand="fujitsu" href="https://www.fujitsu.com/fr/support/products/computing/" target="_blank">
-      <div class="icon">FU</div>
-      <div class="info">
-        <span class="brand">Fujitsu</span>
-        <span class="desc">Numéro de modèle (Lifebook, Stylistic...)</span>
-      </div>
-      <span class="tag">Modèle</span>
-    </a>
-
+    <nav class="sidebar-nav">
+      <a href="#drivers">Drivers</a>
+      <a href="#applications">Applications</a>
+      <a href="#outils">Outils Techniques</a>
+      <a href="#vpn">VPN & Sécurité</a>
+    </nav>
   </div>
 
-  <div class="section-title">Composants — GPU, chipset, réseau</div>
-  <div class="grid" data-group>
-
-    <a class="card" data-brand="nvidia" href="https://www.nvidia.com/fr-fr/drivers/" target="_blank">
-      <div class="icon">NV</div>
-      <div class="info">
-        <span class="brand">NVIDIA</span>
-        <span class="desc">Pilotes GPU — par série / modèle / OS</span>
+  <div class="main-content">
+    <header>
+      <div class="header-logo">
+        <div class="logo-mark">SI</div>
+        <div>
+          <div class="title">SI-ONE</div>
+          <div class="subtitle">Portail Logiciels & Outils Techniques</div>
+        </div>
       </div>
-      <span class="tag">GPU</span>
-    </a>
-
-    <a class="card" data-brand="amd ati" href="https://www.amd.com/fr/support/download/drivers.html" target="_blank">
-      <div class="icon">AM</div>
-      <div class="info">
-        <span class="brand">AMD / ATI</span>
-        <span class="desc">Pilotes GPU + chipset Ryzen</span>
+      <div class="search-wrap">
+        <input type="text" id="search" placeholder="Rechercher..." />
       </div>
-      <span class="tag">GPU / CPU</span>
-    </a>
+    </header>
 
-    <a class="card" data-brand="intel" href="https://www.intel.com/content/www/fr/fr/support/detect.html" target="_blank">
-      <div class="icon">IN</div>
-      <div class="info">
-        <span class="brand">Intel</span>
-        <span class="desc">Détection auto ou recherche par produit</span>
-      </div>
-      <span class="tag">CPU / Réseau</span>
-    </a>
+    <main>
+      <div class="page-title">Portail Logiciels</div>
+      <div class="page-subtitle">Accès centralisé à tous les outils et logiciels pour les techniciens SI-ONE</div>
 
-    <a class="card" data-brand="realtek" href="https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software" target="_blank">
-      <div class="icon">RT</div>
-      <div class="info">
-        <span class="brand">Realtek</span>
-        <span class="desc">Pilotes réseau et audio</span>
-      </div>
-      <span class="tag">Réseau / Audio</span>
-    </a>
+      <!-- Drivers Section -->
+      <section id="drivers" class="section">
+        <h2 class="section-title">Drivers</h2>
+        <div class="grid">
+          <a class="card" data-brand="dell" href="https://www.dell.com/support/home/fr-fr" target="_blank">
+            <div class="card-icon">💻</div>
+            <div class="card-info">
+              <span class="card-title">Dell</span>
+              <span class="card-desc">Service Tag ou détection automatique</span>
+            </div>
+            <span class="card-tag">PC</span>
+          </a>
 
+          <a class="card" data-brand="hp" href="https://support.hp.com/fr-fr/drivers" target="_blank">
+            <div class="card-icon">💻</div>
+            <div class="card-info">
+              <span class="card-title">HP</span>
+              <span class="card-desc">Numéro de série ou détection auto</span>
+            </div>
+            <span class="card-tag">PC</span>
+          </a>
+
+          <a class="card" data-brand="lenovo" href="https://pcsupport.lenovo.com/fr/fr/products/laptops-and-netbooks" target="_blank">
+            <div class="card-icon">💻</div>
+            <div class="card-info">
+              <span class="card-title">Lenovo</span>
+              <span class="card-desc">Numéro de série ou détection auto</span>
+            </div>
+            <span class="card-tag">PC</span>
+          </a>
+
+          <a class="card" data-brand="asus" href="https://www.asus.com/fr/support/" target="_blank">
+            <div class="card-icon">💻</div>
+            <div class="card-info">
+              <span class="card-title">ASUS</span>
+              <span class="card-desc">Numéro de série ou modèle exact</span>
+            </div>
+            <span class="card-tag">PC</span>
+          </a>
+
+          <a class="card" data-brand="acer" href="https://www.acer.com/fr-fr/support" target="_blank">
+            <div class="card-icon">💻</div>
+            <div class="card-info">
+              <span class="card-title">Acer</span>
+              <span class="card-desc">Numéro de série ou modèle</span>
+            </div>
+            <span class="card-tag">PC</span>
+          </a>
+
+          <a class="card" data-brand="microsoft surface" href="https://support.microsoft.com/fr-fr/surface" target="_blank">
+            <div class="card-icon">💻</div>
+            <div class="card-info">
+              <span class="card-title">Microsoft Surface</span>
+              <span class="card-desc">Par modèle</span>
+            </div>
+            <span class="card-tag">PC</span>
+          </a>
+
+          <a class="card" data-brand="toshiba" href="https://www.toshiba-lifestyle.com/fr/support" target="_blank">
+            <div class="card-icon">💻</div>
+            <div class="card-info">
+              <span class="card-title">Toshiba</span>
+              <span class="card-desc">Numéro de modèle ou série</span>
+            </div>
+            <span class="card-tag">PC</span>
+          </a>
+
+          <a class="card" data-brand="fujitsu" href="https://www.fujitsu.com/fr/support/products/computing/" target="_blank">
+            <div class="card-icon">💻</div>
+            <div class="card-info">
+              <span class="card-title">Fujitsu</span>
+              <span class="card-desc">Lifebook, Stylistic</span>
+            </div>
+            <span class="card-tag">PC</span>
+          </a>
+
+          <a class="card" data-brand="nvidia" href="https://www.nvidia.com/fr-fr/drivers/" target="_blank">
+            <div class="card-icon">🎮</div>
+            <div class="card-info">
+              <span class="card-title">NVIDIA</span>
+              <span class="card-desc">Pilotes GPU</span>
+            </div>
+            <span class="card-tag">GPU</span>
+          </a>
+
+          <a class="card" data-brand="amd" href="https://www.amd.com/fr/support/download/drivers.html" target="_blank">
+            <div class="card-icon">🎮</div>
+            <div class="card-info">
+              <span class="card-title">AMD</span>
+              <span class="card-desc">Pilotes GPU + chipset</span>
+            </div>
+            <span class="card-tag">GPU</span>
+          </a>
+
+          <a class="card" data-brand="intel" href="https://www.intel.com/content/www/fr/fr/support/detect.html" target="_blank">
+            <div class="card-icon">🔧</div>
+            <div class="card-info">
+              <span class="card-title">Intel</span>
+              <span class="card-desc">Détection auto</span>
+            </div>
+            <span class="card-tag">CPU</span>
+          </a>
+
+          <a class="card" data-brand="realtek" href="https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software" target="_blank">
+            <div class="card-icon">🌐</div>
+            <div class="card-info">
+              <span class="card-title">Realtek</span>
+              <span class="card-desc">Réseau et audio</span>
+            </div>
+            <span class="card-tag">Réseau</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Applications Section -->
+      <section id="applications" class="section">
+        <h2 class="section-title">Applications</h2>
+        <div class="grid">
+          <div class="card">
+            <div class="card-icon">📊</div>
+            <div class="card-info">
+              <span class="card-title">Office 2013</span>
+              <span class="card-desc">Professional Retail</span>
+            </div>
+            <a href="https://officeredir.microsoft.com/r/rlidO15C2RMediaDownload?p1=db&p2=en-US&p3=ProfessionalRetail" target="_blank" class="btn">Télécharger</a>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">📊</div>
+            <div class="card-info">
+              <span class="card-title">Office 2016</span>
+              <span class="card-desc">Professional Retail</span>
+            </div>
+            <a href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/ProfessionalRetail.img" target="_blank" class="btn">Télécharger</a>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">📊</div>
+            <div class="card-info">
+              <span class="card-title">Office 2019</span>
+              <span class="card-desc">Professional Retail</span>
+            </div>
+            <a href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/Professional2019Retail.img" target="_blank" class="btn">Télécharger</a>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">📊</div>
+            <div class="card-info">
+              <span class="card-title">Office 2021</span>
+              <span class="card-desc">Professional Retail</span>
+            </div>
+            <a href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/Professional2021Retail.img" target="_blank" class="btn">Télécharger</a>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">📧</div>
+            <div class="card-info">
+              <span class="card-title">Outlook 2016</span>
+              <span class="card-desc">Retail</span>
+            </div>
+            <a href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/OutlookRetail.img" target="_blank" class="btn">Télécharger</a>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">📧</div>
+            <div class="card-info">
+              <span class="card-title">Outlook 2019</span>
+              <span class="card-desc">Retail</span>
+            </div>
+            <a href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/Outlook2019Retail.img" target="_blank" class="btn">Télécharger</a>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">📧</div>
+            <div class="card-info">
+              <span class="card-title">Outlook 2021</span>
+              <span class="card-desc">Retail</span>
+            </div>
+            <a href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/Outlook2021Retail.img" target="_blank" class="btn">Télécharger</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Outils Section -->
+      <section id="outils" class="section">
+        <h2 class="section-title">Outils Techniques</h2>
+        <div class="grid">
+          <div class="card">
+            <div class="card-icon">🖥️</div>
+            <div class="card-info">
+              <span class="card-title">CodyDesk</span>
+              <span class="card-desc">Prise en main à distance</span>
+            </div>
+            <a href="https://si-one.com/exe/codydesk.exe" target="_blank" class="btn">Télécharger</a>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">📦</div>
+            <div class="card-info">
+              <span class="card-title">Ninite</span>
+              <span class="card-desc">Installation groupée</span>
+            </div>
+            <a href="https://ninite.com/7zip-adoptjavax8-anydesk-chrome-firefox/ninite.exe" target="_blank" class="btn">Télécharger</a>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">📄</div>
+            <div class="card-info">
+              <span class="card-title">PDF Gear</span>
+              <span class="card-desc">Gestion PDF</span>
+            </div>
+            <a href="https://www.pdfgear.com/fr/download/" target="_blank" class="btn">Télécharger</a>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">🌐</div>
+            <div class="card-info">
+              <span class="card-title">IP Scanner</span>
+              <span class="card-desc">Analyse réseau</span>
+            </div>
+            <a href="https://download.advanced-ip-scanner.com/download/files/Advanced_IP_Scanner_2.5.4594.1.exe" target="_blank" class="btn">Télécharger</a>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">🗑️</div>
+            <div class="card-info">
+              <span class="card-title">Revo Uninstaller</span>
+              <span class="card-desc">Désinstallation</span>
+            </div>
+            <a href="https://revouninstaller.b-cdn.net/ruf270/revosetup.exe" target="_blank" class="btn">Télécharger</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- VPN Section -->
+      <section id="vpn" class="section">
+        <h2 class="section-title">VPN & Sécurité</h2>
+        <div class="grid">
+          <div class="card">
+            <div class="card-icon">🔒</div>
+            <div class="card-info">
+              <span class="card-title">FortiClient</span>
+              <span class="card-desc">VPN Fortinet</span>
+            </div>
+            <a href="https://filestore.fortinet.com/forticlient/downloads/FortiClientVPNInstaller.exe" target="_blank" class="btn">Télécharger</a>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">🔓</div>
+            <div class="card-info">
+              <span class="card-title">OpenVPN</span>
+              <span class="card-desc">VPN Open Source</span>
+            </div>
+            <a href="https://swupdate.openvpn.org/community/releases/OpenVPN-2.7.4-I002-amd64.msi" target="_blank" class="btn">Télécharger</a>
+          </div>
+        </div>
+      </section>
+
+      <p class="no-result" id="noResult">Aucun résultat ne correspond à votre recherche.</p>
+    </main>
+
+    <footer>SI-ONE — Portail Logiciels & Outils Techniques — Usage interne technicien</footer>
   </div>
-
-  <p class="no-result" id="noResult">Aucune marque ne correspond à votre recherche.</p>
-
-  <div class="helper">
-    <strong>Trouver le numéro de série :</strong> étiquette sous le PC ou dans la batterie, BIOS/UEFI, ou via commande :
-    <code>wmic bios get serialnumber</code> &nbsp;/&nbsp; <code>Get-WmiObject Win32_BIOS</code>
-  </div>
-
-</main>
-
-<footer>SI-ONE — Usage interne technicien</footer>
 
 <script>
+  // Toggle sidebar
+  const sidebar = document.querySelector('.sidebar');
+  const sidebarToggle = document.querySelector('.sidebar-toggle');
+
+  sidebarToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('collapsed');
+  });
+
+  // Smooth scroll to section
+  document.querySelectorAll('.sidebar-nav a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href');
+      const targetSection = document.querySelector(targetId);
+      
+      // Close sidebar on mobile
+      if (window.innerWidth <= 768) {
+        sidebar.classList.add('collapsed');
+      }
+      
+      // Smooth scroll
+      targetSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+      
+      // Update URL hash
+      history.pushState(null, null, targetId);
+    });
+  });
+
+  // Search functionality
   const search = document.getElementById('search');
-  const cards = document.querySelectorAll('.card');
-  const groups = document.querySelectorAll('[data-group]');
-  const sectionTitles = document.querySelectorAll('.section-title');
   const noResult = document.getElementById('noResult');
+  const allCards = document.querySelectorAll('.card');
+  const allSections = document.querySelectorAll('.section');
 
   search.addEventListener('input', () => {
     const term = search.value.trim().toLowerCase();
-    let totalVisible = 0;
+    let visibleCount = 0;
 
-    groups.forEach((group, i) => {
-      let visibleInGroup = 0;
-      group.querySelectorAll('.card').forEach(card => {
-        const match = card.dataset.brand.includes(term);
-        card.style.display = match ? 'flex' : 'none';
-        if (match) visibleInGroup++;
-      });
-      sectionTitles[i].style.display = visibleInGroup > 0 ? 'block' : 'none';
-      totalVisible += visibleInGroup;
+    allCards.forEach(card => {
+      const brand = card.dataset.brand || '';
+      const title = card.querySelector('.card-title').textContent.toLowerCase();
+      const desc = card.querySelector('.card-desc').textContent.toLowerCase();
+      const isVisible = brand.includes(term) || title.includes(term) || desc.includes(term);
+      
+      card.style.display = isVisible ? 'flex' : 'none';
+      if (isVisible) visibleCount++;
     });
 
-    noResult.style.display = totalVisible === 0 ? 'block' : 'none';
+    // Hide/show sections based on visible cards
+    allSections.forEach(section => {
+      const sectionCards = section.querySelectorAll('.card');
+      let sectionVisible = false;
+      
+      sectionCards.forEach(card => {
+        if (card.style.display === 'flex') {
+          sectionVisible = true;
+        }
+      });
+      
+      section.style.display = sectionVisible ? 'block' : 'none';
+    });
+
+    noResult.classList.toggle('show', visibleCount === 0);
+  });
+
+  // Highlight sidebar nav based on scroll position
+  const sections = document.querySelectorAll('.section');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      
+      if (window.scrollY >= (sectionTop - 100)) {
+        current = section.getAttribute('id');
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${current}`) {
+        link.classList.add('active');
+      }
+    });
+  });
+
+  // Initialize active section on load
+  window.addEventListener('load', () => {
+    const firstSection = document.querySelector('.section');
+    if (firstSection) {
+      const firstNavLink = document.querySelector('.sidebar-nav a[href="#' + firstSection.id + '"]');
+      if (firstNavLink) {
+        firstNavLink.classList.add('active');
+      }
+    }
   });
 </script>
 
