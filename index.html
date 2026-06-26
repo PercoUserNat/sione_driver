@@ -13,17 +13,19 @@
   }
 
   :root {
-    --primary: #2563eb;
-    --primary-dark: #1d4ed8;
-    --primary-light: #dbeafe;
-    --secondary: #64748b;
-    --secondary-dark: #475569;
-    --bg: #ffffff;
-    --white: #ffffff;
-    --text: #1e293b;
-    --text-light: #94a3b8;
-    --border: #e2e8f0;
-    --shadow: rgba(0, 0, 0, 0.05);
+    /* Nouvelle palette inspirée de l'image */
+    --primary: #6D9773; /* Vert moyen */
+    --primary-light: #8FA888;
+    --primary-dark: #4A6B4F;
+    --secondary: #FFBA00; /* Jaune or */
+    --secondary-light: #FFD166;
+    --bg-dark: #0C3B2E; /* Vert très foncé */
+    --bg: #1A2E23; /* Vert foncé adouci */
+    --white: #FFFFFF;
+    --text: #E0E0E0;
+    --text-light: #A0A0A0;
+    --border: #3A4E3E; /* Vert foncé pour bordures */
+    --shadow: rgba(109, 151, 115, 0.3);
     --sidebar-width: 280px;
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -34,22 +36,145 @@
     color: var(--text);
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     overflow-x: hidden;
-    position: relative;
+  }
+
+  /* Bannière fixe avec chat statique et infos */
+  .banner {
+    width: 100%;
+    height: 60px;
+    background: var(--bg-dark);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    border-bottom: 1px solid var(--primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    justify-content: space-between;
+  }
+
+  .banner-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .pixel-cat {
+    width: 40px;
+    height: 40px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" fill="%230C3B2E"/><rect x="4" y="4" width="8" height="4" fill="%23FFBA00"/><rect x="3" y="8" width="2" height="2" fill="%23FFFFFF"/><rect x="7" y="8" width="2" height="2" fill="%23FFFFFF"/><rect x="11" y="8" width="2" height="2" fill="%23FFFFFF"/><rect x="4" y="6" width="8" height="2" fill="%236D9773"/><rect x="5" y="10" width="6" height="2" fill="%23FFBA00"/><circle cx="5" cy="7" r="0.5" fill="%23000000"/><circle cx="11" cy="7" r="0.5" fill="%23000000"/><path d="M6 9 L7 10 L8 9" stroke="%230C3B2E" stroke-width="0.5" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-size: contain;
+    flex-shrink: 0;
+  }
+
+  .banner-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--secondary);
+    letter-spacing: 0.05em;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  }
+
+  .banner-center {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .search-wrap {
+    max-width: 400px;
+  }
+
+  #search {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    background: var(--bg-dark);
+    color: var(--text);
+    outline: none;
+    transition: var(--transition);
+  }
+
+  #search:focus {
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 3px rgba(255, 186, 0, 0.2);
+  }
+
+  .banner-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .time {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    padding: 8px 12px;
+    background: rgba(109, 151, 115, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+
+  .time i {
+    color: var(--secondary);
+  }
+
+  .github-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: var(--bg-dark);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: var(--transition);
+    cursor: pointer;
+  }
+
+  .github-btn:hover {
+    background: rgba(109, 151, 115, 0.2);
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+
+  .github-btn i {
+    font-size: 1rem;
+  }
+
+  /* Contenu principal */
+  .content-wrapper {
+    display: flex;
+    flex: 1;
+    margin-top: 60px;
   }
 
   /* Sidebar */
   .sidebar {
     width: var(--sidebar-width);
-    background: var(--white);
+    background: var(--bg-dark);
     border-right: 1px solid var(--border);
     position: fixed;
-    top: 0;
+    top: 60px;
     left: 0;
-    height: 100vh;
+    height: calc(100vh - 60px);
     z-index: 100;
     overflow-y: auto;
     transition: var(--transition);
+    box-shadow: 2px 0 10px rgba(109, 151, 115, 0.2);
   }
 
   .sidebar.collapsed {
@@ -58,19 +183,19 @@
 
   .sidebar-toggle {
     position: fixed;
-    top: 20px;
+    top: 60px;
     left: var(--sidebar-width);
-    width: 30px;
-    height: 30px;
-    background: var(--white);
-    border: 1px solid var(--border);
+    width: 40px;
+    height: 40px;
+    background: var(--bg-dark);
+    border: 1px solid var(--primary);
     border-left: none;
     border-radius: 0 8px 8px 0;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 1px 0 5px var(--shadow);
+    box-shadow: 2px 0 10px rgba(109, 151, 115, 0.2);
     transition: var(--transition);
     z-index: 101;
   }
@@ -78,13 +203,12 @@
   .sidebar.collapsed ~ .sidebar-toggle {
     left: 10px;
     border-radius: 8px;
-    border: 1px solid var(--border);
-    box-shadow: 0 2px 5px var(--shadow);
+    border: 1px solid var(--primary);
   }
 
   .sidebar-toggle::before {
     content: '';
-    width: 16px;
+    width: 20px;
     height: 2px;
     background: var(--primary);
     position: absolute;
@@ -93,7 +217,7 @@
 
   .sidebar-toggle::after {
     content: '';
-    width: 16px;
+    width: 20px;
     height: 2px;
     background: var(--primary);
     position: absolute;
@@ -119,13 +243,14 @@
   .sidebar-header {
     padding: 24px 20px;
     border-bottom: 1px solid var(--border);
+    background: rgba(109, 151, 115, 0.1);
   }
 
   .sidebar-header .title {
     font-family: 'Rajdhani', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: 700;
-    color: var(--primary);
+    color: var(--secondary);
     letter-spacing: 0.05em;
   }
 
@@ -159,19 +284,19 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.05));
+    background: linear-gradient(90deg, transparent, rgba(109, 151, 115, 0.1));
     transition: var(--transition);
   }
 
   .sidebar-nav a:hover {
     color: var(--primary);
-    background: var(--primary-light);
+    background: rgba(109, 151, 115, 0.1);
     border-left-color: var(--primary);
   }
 
   .sidebar-nav a.active {
     color: var(--primary);
-    background: rgba(37, 99, 235, 0.08);
+    background: rgba(109, 151, 115, 0.2);
     border-left-color: var(--primary);
     font-weight: 600;
   }
@@ -181,6 +306,8 @@
     flex: 1;
     margin-left: var(--sidebar-width);
     transition: var(--transition);
+    background: var(--bg);
+    padding-bottom: 20px;
   }
 
   .sidebar.collapsed ~ .main-content {
@@ -188,16 +315,16 @@
   }
 
   header {
-    background: var(--white);
+    background: var(--bg-dark);
     border-bottom: 1px solid var(--border);
     padding: 20px 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: sticky;
-    top: 0;
+    top: 60px;
     z-index: 50;
-    box-shadow: 0 2px 5px var(--shadow);
+    box-shadow: 0 2px 10px rgba(109, 151, 115, 0.2);
     gap: 20px;
   }
 
@@ -205,31 +332,19 @@
     font-family: 'Rajdhani', sans-serif;
     font-size: 1.8rem;
     font-weight: 700;
-    color: var(--primary);
+    color: var(--secondary);
     letter-spacing: -0.02em;
     text-align: center;
     flex: 1;
+    text-shadow: 0 0 8px rgba(255, 186, 0, 0.3);
   }
 
-  .search-wrap {
-    max-width: 400px;
+  .no-header-title {
+    display: none;
   }
 
-  #search {
-    width: 100%;
-    padding: 12px 16px;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    font-size: 0.9rem;
-    background: var(--white);
-    color: var(--text);
-    outline: none;
-    transition: var(--transition);
-  }
-
-  #search:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px var(--primary-light);
+  .search-wrap-header {
+    display: none;
   }
 
   main {
@@ -240,12 +355,13 @@
 
   .page-title {
     font-family: 'Rajdhani', sans-serif;
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 700;
-    color: var(--text);
+    color: var(--secondary);
     margin-bottom: 8px;
     letter-spacing: -0.02em;
     text-align: center;
+    text-shadow: 0 0 10px rgba(255, 186, 0, 0.3);
   }
 
   .page-subtitle {
@@ -258,14 +374,14 @@
   /* Sections */
   .section {
     margin-bottom: 50px;
-    scroll-margin-top: 20px;
+    scroll-margin-top: 120px;
   }
 
   .section-title {
     font-family: 'Rajdhani', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: 600;
-    color: var(--text);
+    color: var(--primary);
     margin-bottom: 20px;
     padding-bottom: 12px;
     border-bottom: 1px solid var(--border);
@@ -282,7 +398,7 @@
     left: 0;
     width: 40px;
     height: 3px;
-    background: var(--primary);
+    background: var(--secondary);
     border-radius: 0 0 8px 0;
   }
 
@@ -293,9 +409,9 @@
   }
 
   .card {
-    background: var(--white);
+    background: var(--bg-dark);
     border: 1px solid var(--border);
-    border-radius: 16px;
+    border-radius: 12px;
     padding: 20px;
     display: flex;
     align-items: center;
@@ -307,10 +423,26 @@
     overflow: hidden;
   }
 
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 186, 0, 0.05) 0%, rgba(109, 151, 115, 0.1) 100%);
+    opacity: 0;
+    transition: var(--transition);
+  }
+
   .card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-    border-color: var(--primary-light);
+    box-shadow: 0 8px 20px rgba(255, 186, 0, 0.15);
+    border-color: var(--primary);
+  }
+
+  .card:hover::before {
+    opacity: 1;
   }
 
   .card-info {
@@ -324,7 +456,7 @@
   .card-title {
     font-weight: 600;
     font-size: 0.95rem;
-    color: var(--text);
+    color: var(--white);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -342,7 +474,7 @@
     background: var(--primary);
     color: var(--white);
     border: none;
-    border-radius: 12px;
+    border-radius: 8px;
     padding: 10px 16px;
     font-size: 0.8rem;
     font-weight: 600;
@@ -353,12 +485,13 @@
     text-decoration: none;
     display: inline-flex;
     align-items: center;
+    box-shadow: 0 2px 4px rgba(109, 151, 115, 0.3);
   }
 
   .btn:hover {
-    background: var(--primary-dark);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    background: var(--primary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 186, 0, 0.3);
   }
 
   .btn:active {
@@ -371,7 +504,7 @@
     color: var(--text-light);
     padding: 40px 0;
     font-size: 1rem;
-    background: var(--white);
+    background: var(--bg-dark);
     border-radius: 12px;
     border: 1px dashed var(--border);
     margin: 20px 0;
@@ -394,6 +527,7 @@
     padding: 24px 0;
     border-top: 1px solid var(--border);
     margin-top: 40px;
+    background: var(--bg-dark);
   }
 
   /* Responsive */
@@ -404,11 +538,63 @@
     .main-content {
       padding: 20px;
     }
+    .banner {
+      height: 50px;
+    }
+    .pixel-cat {
+      width: 30px;
+      height: 30px;
+    }
+    .banner-title {
+      font-size: 1.2rem;
+    }
+    .banner-center {
+      display: none;
+    }
   }
 
   @media (max-width: 768px) {
+    .banner {
+      height: 50px;
+      padding: 0 10px;
+      justify-content: space-between;
+    }
+    
+    .banner-left {
+      gap: 8px;
+    }
+    
+    .pixel-cat {
+      width: 24px;
+      height: 24px;
+    }
+    
+    .banner-title {
+      font-size: 1rem;
+    }
+    
+    .banner-center {
+      display: none;
+    }
+    
+    .banner-right {
+      gap: 8px;
+    }
+    
+    .time {
+      padding: 6px 8px;
+      font-size: 0.75rem;
+    }
+    
+    .github-btn {
+      padding: 6px 8px;
+      font-size: 0.75rem;
+    }
+    
     .sidebar {
       transform: translateX(-100%);
+      top: 50px;
+      height: calc(100vh - 50px);
     }
     
     .sidebar.collapsed {
@@ -416,8 +602,8 @@
     }
     
     .sidebar-toggle {
+      top: 50px;
       left: 10px;
-      top: 20px;
       z-index: 101;
     }
     
@@ -427,15 +613,18 @@
     
     .main-content {
       margin-left: 0;
+      margin-top: 0;
     }
     
     header {
+      top: 50px;
       flex-direction: column;
       gap: 15px;
       padding: 15px 20px;
     }
     
-    .search-wrap {
+    .search-wrap-header {
+      display: block;
       max-width: 100%;
       width: 100%;
     }
@@ -447,279 +636,366 @@
     .page-title, .page-subtitle {
       text-align: left;
     }
+    
+    .section {
+      scroll-margin-top: 120px;
+    }
   }
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
 
-  <div class="sidebar">
-    <div class="sidebar-header">
-      <div class="title">SI-ONE</div>
-      <div class="subtitle">Espace Technicien</div>
+  <!-- Bannière fixe avec chat statique, recherche, heure et bouton GitHub -->
+  <div class="banner">
+    <div class="banner-left">
+      <div class="pixel-cat"></div>
+      <div class="banner-title">SI-ONE</div>
     </div>
-    <nav class="sidebar-nav">
-      <a href="#drivers">Drivers</a>
-      <a href="#applications">Applications</a>
-      <a href="#outils">Outils Techniques</a>
-      <a href="#vpn">VPN & Sécurité</a>
-      <a href="#imprimantes">Imprimantes</a>
-    </nav>
-  </div>
-
-  <div class="sidebar-toggle"></div>
-
-  <div class="main-content">
-    <header>
-      <div class="header-title">SI-ONE</div>
+    <div class="banner-center">
       <div class="search-wrap">
         <input type="text" id="search" placeholder="Rechercher..." />
       </div>
-    </header>
-
-    <main>
-      <div class="page-title">Portail Logiciels</div>
-      <div class="page-subtitle">Accès centralisé à tous les outils et logiciels pour les techniciens</div>
-
-      <!-- Drivers Section -->
-      <section id="drivers" class="section">
-        <h2 class="section-title">Drivers</h2>
-        <div class="grid">
-          <a class="card" data-brand="dell" href="https://www.dell.com/support/home/fr-fr" target="_blank">
-            <div class="card-info">
-              <span class="card-title">Dell</span>
-              <span class="card-desc">Drivers Dell</span>
-            </div>
-          </a>
-
-          <a class="card" data-brand="hp" href="https://support.hp.com/fr-fr/drivers" target="_blank">
-            <div class="card-info">
-              <span class="card-title">HP</span>
-              <span class="card-desc">Drivers HP</span>
-            </div>
-          </a>
-
-          <a class="card" data-brand="lenovo" href="https://pcsupport.lenovo.com/fr/fr/products/laptops-and-netbooks" target="_blank">
-            <div class="card-info">
-              <span class="card-title">Lenovo</span>
-              <span class="card-desc">Drivers Lenovo</span>
-            </div>
-          </a>
-
-          <a class="card" data-brand="asus" href="https://www.asus.com/fr/support/" target="_blank">
-            <div class="card-info">
-              <span class="card-title">ASUS</span>
-              <span class="card-desc">Drivers ASUS</span>
-            </div>
-          </a>
-
-          <a class="card" data-brand="acer" href="https://www.acer.com/fr-fr/support" target="_blank">
-            <div class="card-info">
-              <span class="card-title">Acer</span>
-              <span class="card-desc">Drivers Acer</span>
-            </div>
-          </a>
-
-          <a class="card" data-brand="microsoft surface" href="https://support.microsoft.com/fr-fr/surface" target="_blank">
-            <div class="card-info">
-              <span class="card-title">Microsoft Surface</span>
-              <span class="card-desc">Drivers Surface</span>
-            </div>
-          </a>
-
-          <a class="card" data-brand="toshiba" href="https://www.toshiba-lifestyle.com/fr/support" target="_blank">
-            <div class="card-info">
-              <span class="card-title">Toshiba</span>
-              <span class="card-desc">Drivers Toshiba</span>
-            </div>
-          </a>
-
-          <a class="card" data-brand="fujitsu" href="https://www.fujitsu.com/fr/support/products/computing/" target="_blank">
-            <div class="card-info">
-              <span class="card-title">Fujitsu</span>
-              <span class="card-desc">Drivers Fujitsu</span>
-            </div>
-          </a>
-
-          <a class="card" data-brand="nvidia" href="https://www.nvidia.com/fr-fr/drivers/" target="_blank">
-            <div class="card-info">
-              <span class="card-title">NVIDIA</span>
-              <span class="card-desc">Drivers NVIDIA</span>
-            </div>
-          </a>
-
-          <a class="card" data-brand="amd" href="https://www.amd.com/fr/support/download/drivers.html" target="_blank">
-            <div class="card-info">
-              <span class="card-title">AMD</span>
-              <span class="card-desc">Drivers AMD</span>
-            </div>
-          </a>
-
-          <a class="card" data-brand="intel" href="https://www.intel.com/content/www/fr/fr/support/detect.html" target="_blank">
-            <div class="card-info">
-              <span class="card-title">Intel</span>
-              <span class="card-desc">Drivers Intel</span>
-            </div>
-          </a>
-
-          <a class="card" data-brand="realtek" href="https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software" target="_blank">
-            <div class="card-info">
-              <span class="card-title">Realtek</span>
-              <span class="card-desc">Drivers Realtek</span>
-            </div>
-          </a>
-        </div>
-      </section>
-
-      <!-- Applications Section -->
-      <section id="applications" class="section">
-        <h2 class="section-title">Applications</h2>
-        <div class="grid">
-          <a class="card" href="https://officeredir.microsoft.com/r/rlidO15C2RMediaDownload?p1=db&p2=en-US&p3=ProfessionalRetail" target="_blank">
-            <div class="card-info">
-              <span class="card-title">Office 2013</span>
-            </div>
-            <span class="btn">Télécharger</span>
-          </a>
-
-          <a class="card" href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/ProfessionalRetail.img" target="_blank">
-            <div class="card-info">
-              <span class="card-title">Office 2016</span>
-            </div>
-            <span class="btn">Télécharger</span>
-          </a>
-
-          <a class="card" href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/Professional2019Retail.img" target="_blank">
-            <div class="card-info">
-              <span class="card-title">Office 2019</span>
-            </div>
-            <span class="btn">Télécharger</span>
-          </a>
-
-          <a class="card" href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/Professional2021Retail.img" target="_blank">
-            <div class="card-info">
-              <span class="card-title">Office 2021</span>
-            </div>
-            <span class="btn">Télécharger</span>
-          </a>
-
-          <a class="card" href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/OutlookRetail.img" target="_blank">
-            <div class="card-info">
-              <span class="card-title">Outlook 2016</span>
-            </div>
-            <span class="btn">Télécharger</span>
-          </a>
-
-          <a class="card" href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/Outlook2019Retail.img" target="_blank">
-            <div class="card-info">
-              <span class="card-title">Outlook 2019</span>
-            </div>
-            <span class="btn">Télécharger</span>
-          </a>
-
-          <a class="card" href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/Outlook2021Retail.img" target="_blank">
-            <div class="card-info">
-              <span class="card-title">Outlook 2021</span>
-            </div>
-            <span class="btn">Télécharger</span>
-          </a>
-        </div>
-      </section>
-
-      <!-- Outils Section -->
-      <section id="outils" class="section">
-        <h2 class="section-title">Outils Techniques</h2>
-        <div class="grid">
-          <a class="card" href="https://si-one.com/exe/codydesk.exe" target="_blank">
-            <div class="card-info">
-              <span class="card-title">CodyDesk</span>
-              <span class="card-desc">Prise en main à distance</span>
-            </div>
-            <span class="btn">Télécharger</span>
-          </a>
-
-          <a class="card" href="https://ninite.com/7zip-adoptjavax8-anydesk-chrome-firefox/ninite.exe" target="_blank">
-            <div class="card-info">
-              <span class="card-title">Ninite</span>
-              <span class="card-desc">Installation groupée</span>
-            </div>
-            <span class="btn">Télécharger</span>
-          </a>
-
-          <a class="card" href="https://www.pdfgear.com/fr/download/" target="_blank">
-            <div class="card-info">
-              <span class="card-title">PDF Gear</span>
-              <span class="card-desc">Gestion PDF</span>
-            </div>
-            <span class="btn">Télécharger</span>
-          </a>
-
-          <a class="card" href="https://download.advanced-ip-scanner.com/download/files/Advanced_IP_Scanner_2.5.4594.1.exe" target="_blank">
-            <div class="card-info">
-              <span class="card-title">IP Scanner</span>
-              <span class="card-desc">Analyse réseau</span>
-            </div>
-            <span class="btn">Télécharger</span>
-          </a>
-
-          <a class="card" href="https://revouninstaller.b-cdn.net/ruf270/revosetup.exe" target="_blank">
-            <div class="card-info">
-              <span class="card-title">Revo Uninstaller</span>
-              <span class="card-desc">Désinstallation</span>
-            </div>
-            <span class="btn">Télécharger</span>
-          </a>
-        </div>
-      </section>
-
-      <!-- VPN Section -->
-      <section id="vpn" class="section">
-        <h2 class="section-title">VPN & Sécurité</h2>
-        <div class="grid">
-          <a class="card" href="https://filestore.fortinet.com/forticlient/downloads/FortiClientVPNInstaller.exe" target="_blank">
-            <div class="card-info">
-              <span class="card-title">FortiClient</span>
-              <span class="card-desc">VPN Fortinet</span>
-            </div>
-            <span class="btn">Télécharger</span>
-          </a>
-
-          <a class="card" href="https://swupdate.openvpn.org/community/releases/OpenVPN-2.7.4-I002-amd64.msi" target="_blank">
-            <div class="card-info">
-              <span class="card-title">OpenVPN</span>
-              <span class="card-desc">VPN Open Source</span>
-            </div>
-            <span class="btn">Télécharger</span>
-          </a>
-        </div>
-      </section>
-
-      <!-- Imprimantes Section -->
-      <section id="imprimantes" class="section">
-        <h2 class="section-title">Imprimantes</h2>
-        <div class="grid">
-          <a class="card" href="https://dl.konicaminolta.eu/fr/?tx_kmdownloadproxy_downloadproxy[fileId]=66cf82ed0d25ac0eef3cf25f60e5d97b&tx_kmdownloadproxy_downloadproxy[documentId]=129692&tx_kmdownloadproxy_downloadproxy[system]=KonicaMinolta&tx_kmdownloadproxy_downloadproxy[language]=FR&type=1558521685" target="_blank">
-            <div class="card-info">
-              <span class="card-title">Konica Universal Driver</span>
-            </div>
-            <span class="btn">Télécharger</span>
-          </a>
-
-          <a class="card" href="https://support.ricoh.com/bb/pub_e/dr_ut_e/0001344/0001344034/V23200/driver_web_installer.exe" target="_blank">
-            <div class="card-info">
-              <span class="card-title">Ricoh C2000 Driver</span>
-            </div>
-            <span class="btn">Télécharger</span>
-          </a>
-        </div>
-      </section>
-
-      <p class="no-result" id="noResult">Aucun résultat ne correspond à votre recherche.</p>
-    </main>
-
-    <footer>SI-ONE — Espace Technicien</footer>
+    </div>
+    <div class="banner-right">
+      <div class="time">
+        <i class="fas fa-clock"></i>
+        <span id="current-time">--:--:--</span>
+      </div>
+      <a href="https://github.com/PercoUserNat/sione_driver" target="_blank" class="github-btn">
+        <i class="fab fa-github"></i>
+        <span>GitHub</span>
+      </a>
+    </div>
   </div>
 
+  <div class="content-wrapper">
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <div class="title">SI-ONE</div>
+        <div class="subtitle">Espace Technicien</div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#drivers">Drivers</a>
+        <a href="#applications">Applications Office</a>
+        <a href="#applications-autres">Applications Autres</a>
+        <a href="#outils">Outils Techniques</a>
+        <a href="#vpn">VPN & Sécurité</a>
+        <a href="#imprimantes">Imprimantes</a>
+      </nav>
+    </div>
+
+    <div class="sidebar-toggle"></div>
+
+    <div class="main-content">
+      <header>
+        <div class="header-title no-header-title">SI-ONE</div>
+        <div class="search-wrap search-wrap-header">
+          <input type="text" id="search-header" placeholder="Rechercher..." />
+        </div>
+      </header>
+
+      <main>
+        <div class="page-title">Portail Logiciels</div>
+        <div class="page-subtitle">Accès centralisé à tous les outils et logiciels pour les techniciens</div>
+
+        <!-- Drivers Section -->
+        <section id="drivers" class="section">
+          <h2 class="section-title">Drivers</h2>
+          <div class="grid">
+            <a class="card" data-brand="dell" href="https://www.dell.com/support/home/fr-fr" target="_blank">
+              <div class="card-info">
+                <span class="card-title">Dell</span>
+                <span class="card-desc">Drivers Dell</span>
+              </div>
+            </a>
+
+            <a class="card" data-brand="hp" href="https://support.hp.com/fr-fr/drivers" target="_blank">
+              <div class="card-info">
+                <span class="card-title">HP</span>
+                <span class="card-desc">Drivers HP</span>
+              </div>
+            </a>
+
+            <a class="card" data-brand="lenovo" href="https://pcsupport.lenovo.com/fr/fr/products/laptops-and-netbooks" target="_blank">
+              <div class="card-info">
+                <span class="card-title">Lenovo</span>
+                <span class="card-desc">Drivers Lenovo</span>
+              </div>
+            </a>
+
+            <a class="card" data-brand="asus" href="https://www.asus.com/fr/support/" target="_blank">
+              <div class="card-info">
+                <span class="card-title">ASUS</span>
+                <span class="card-desc">Drivers ASUS</span>
+              </div>
+            </a>
+
+            <a class="card" data-brand="acer" href="https://www.acer.com/fr-fr/support" target="_blank">
+              <div class="card-info">
+                <span class="card-title">Acer</span>
+                <span class="card-desc">Drivers Acer</span>
+              </div>
+            </a>
+
+            <a class="card" data-brand="microsoft surface" href="https://support.microsoft.com/fr-fr/surface" target="_blank">
+              <div class="card-info">
+                <span class="card-title">Microsoft Surface</span>
+                <span class="card-desc">Drivers Surface</span>
+              </div>
+            </a>
+
+            <a class="card" data-brand="toshiba" href="https://www.toshiba-lifestyle.com/fr/support" target="_blank">
+              <div class="card-info">
+                <span class="card-title">Toshiba</span>
+                <span class="card-desc">Drivers Toshiba</span>
+              </div>
+            </a>
+
+            <a class="card" data-brand="fujitsu" href="https://www.fujitsu.com/fr/support/products/computing/" target="_blank">
+              <div class="card-info">
+                <span class="card-title">Fujitsu</span>
+                <span class="card-desc">Drivers Fujitsu</span>
+              </div>
+            </a>
+
+            <a class="card" data-brand="nvidia" href="https://www.nvidia.com/fr-fr/drivers/" target="_blank">
+              <div class="card-info">
+                <span class="card-title">NVIDIA</span>
+                <span class="card-desc">Drivers NVIDIA</span>
+              </div>
+            </a>
+
+            <a class="card" data-brand="amd" href="https://www.amd.com/fr/support/download/drivers.html" target="_blank">
+              <div class="card-info">
+                <span class="card-title">AMD</span>
+                <span class="card-desc">Drivers AMD</span>
+              </div>
+            </a>
+
+            <a class="card" data-brand="intel" href="https://www.intel.com/content/www/fr/fr/support/detect.html" target="_blank">
+              <div class="card-info">
+                <span class="card-title">Intel</span>
+                <span class="card-desc">Drivers Intel</span>
+              </div>
+            </a>
+
+            <a class="card" data-brand="realtek" href="https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software" target="_blank">
+              <div class="card-info">
+                <span class="card-title">Realtek</span>
+                <span class="card-desc">Drivers Realtek</span>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- Applications Office Section -->
+        <section id="applications" class="section">
+          <h2 class="section-title">Applications Office</h2>
+          <div class="grid">
+            <a class="card" href="https://officeredir.microsoft.com/r/rlidO15C2RMediaDownload?p1=db&p2=en-US&p3=ProfessionalRetail" target="_blank">
+              <div class="card-info">
+                <span class="card-title">Office 2013</span>
+              </div>
+              <span class="btn">Télécharger</span>
+            </a>
+
+            <a class="card" href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/ProfessionalRetail.img" target="_blank">
+              <div class="card-info">
+                <span class="card-title">Office 2016</span>
+              </div>
+              <span class="btn">Télécharger</span>
+            </a>
+
+            <a class="card" href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/Professional2019Retail.img" target="_blank">
+              <div class="card-info">
+                <span class="card-title">Office 2019</span>
+              </div>
+              <span class="btn">Télécharger</span>
+            </a>
+
+            <a class="card" href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/Professional2021Retail.img" target="_blank">
+              <div class="card-info">
+                <span class="card-title">Office 2021</span>
+              </div>
+              <span class="btn">Télécharger</span>
+            </a>
+
+            <a class="card" href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/OutlookRetail.img" target="_blank">
+              <div class="card-info">
+                <span class="card-title">Outlook 2016</span>
+              </div>
+              <span class="btn">Télécharger</span>
+            </a>
+
+            <a class="card" href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/Outlook2019Retail.img" target="_blank">
+              <div class="card-info">
+                <span class="card-title">Outlook 2019</span>
+              </div>
+              <span class="btn">Télécharger</span>
+            </a>
+
+            <a class="card" href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/Outlook2021Retail.img" target="_blank">
+              <div class="card-info">
+                <span class="card-title">Outlook 2021</span>
+              </div>
+              <span class="btn">Télécharger</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- Applications Autres Section -->
+        <section id="applications-autres" class="section">
+          <h2 class="section-title">Applications Autres</h2>
+          <div class="grid">
+            <a class="card" href="https://app.voicemanager.io/apps/VoiceManager_6.5.5.2_116730.msi" target="_blank">
+              <div class="card-info">
+                <span class="card-title">VoiceManager</span>
+                <span class="card-desc">Gestion vocale</span>
+              </div>
+              <span class="btn">Télécharger</span>
+            </a>
+
+            <a class="card" href="https://ninite.com/7zip-adoptjavax8-anydesk-chrome-firefox/ninite.exe" target="_blank">
+              <div class="card-info">
+                <span class="card-title">Ninite</span>
+                <span class="card-desc">Installation groupée</span>
+              </div>
+              <span class="btn">Télécharger</span>
+            </a>
+
+            <a class="card" href="https://www.pdfgear.com/fr/download/" target="_blank">
+              <div class="card-info">
+                <span class="card-title">PDF Gear</span>
+                <span class="card-desc">Gestion PDF</span>
+              </div>
+              <span class="btn">Télécharger</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- Outils Techniques Section -->
+        <section id="outils" class="section">
+          <h2 class="section-title">Outils Techniques</h2>
+          <div class="grid">
+            <a class="card" href="https://si-one.com/exe/codydesk.exe" target="_blank">
+              <div class="card-info">
+                <span class="card-title">CodyDesk</span>
+                <span class="card-desc">Prise en main à distance</span>
+              </div>
+              <span class="btn">Télécharger</span>
+            </a>
+
+            <a class="card" href="https://release-assets.githubusercontent.com/github-production-release-asset/2810292/e10c6f00-ca6b-43ea-90dc-0a03ff5b438b?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-06-26T14%3A44%3A56Z&rscd=attachment%3B+filename%3Drufus-4.14.exe&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-06-26T13%3A44%3A13Z&ske=2026-06-26T14%3A44%3A56Z&sks=b&skv=2018-11-09&sig=iy%2FXoN0zQG%2FZygx9uab1e832uN4RYAiYG3ucgeaEEms%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc4MjQ4MjAyNywibmJmIjoxNzgyNDgxNzI3LCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.OzLr0TupK11S7PLKhSpBPtA5G2NeYGzPs4HtmCgwW9o&response-content-disposition=attachment%3B%20filename%3Drufus-4.14.exe&response-content-type=application%2Foctet-stream" target="_blank">
+              <div class="card-info">
+                <span class="card-title">Rufus</span>
+                <span class="card-desc">Création de clé USB bootable</span>
+              </div>
+              <span class="btn">Télécharger</span>
+            </a>
+
+            <a class="card" href="https://the.earth.li/~sgtatham/putty/0.84/w64/putty-64bit-0.84-installer.msi" target="_blank">
+              <div class="card-info">
+                <span class="card-title">PuTTY</span>
+                <span class="card-desc">Client SSH/Telnet</span>
+              </div>
+              <span class="btn">Télécharger</span>
+            </a>
+
+            <a class="card" href="https://2.na.dl.wireshark.org/win64/Wireshark-4.6.6-x64.exe" target="_blank">
+              <div class="card-info">
+                <span class="card-title">Wireshark</span>
+                <span class="card-desc">Analyseur de paquets réseau</span>
+              </div>
+              <span class="btn">Télécharger</span>
+            </a>
+
+            <a class="card" href="https://dl.bitsum.com/files/parkcontrolsetup64.exe" target="_blank">
+              <div class="card-info">
+                <span class="card-title">ParkControl</span>
+                <span class="card-desc">Gestion du parking des cœurs CPU</span>
+              </div>
+              <span class="btn">Télécharger</span>
+            </a>
+
+            <a class="card" href="https://download.advanced-ip-scanner.com/download/files/Advanced_IP_Scanner_2.5.4594.1.exe" target="_blank">
+              <div class="card-info">
+                <span class="card-title">IP Scanner</span>
+                <span class="card-desc">Analyse réseau</span>
+              </div>
+              <span class="btn">Télécharger</span>
+            </a>
+
+            <a class="card" href="https://revouninstaller.b-cdn.net/ruf270/revosetup.exe" target="_blank">
+              <div class="card-info">
+                <span class="card-title">Revo Uninstaller</span>
+                <span class="card-desc">Désinstallation</span>
+              </div>
+              <span class="btn">Télécharger</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- VPN Section -->
+        <section id="vpn" class="section">
+          <h2 class="section-title">VPN & Sécurité</h2>
+          <div class="grid">
+            <a class="card" href="https://filestore.fortinet.com/forticlient/downloads/FortiClientVPNInstaller.exe" target="_blank">
+              <div class="card-info">
+                <span class="card-title">FortiClient</span>
+                <span class="card-desc">VPN Fortinet</span>
+              </div>
+              <span class="btn">Télécharger</span>
+            </a>
+
+            <a class="card" href="https://swupdate.openvpn.org/community/releases/OpenVPN-2.7.4-I002-amd64.msi" target="_blank">
+              <div class="card-info">
+                <span class="card-title">OpenVPN</span>
+                <span class="card-desc">VPN Open Source</span>
+              </div>
+              <span class="btn">Télécharger</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- Imprimantes Section -->
+        <section id="imprimantes" class="section">
+          <h2 class="section-title">Imprimantes</h2>
+          <div class="grid">
+            <a class="card" href="https://dl.konicaminolta.eu/fr/?tx_kmdownloadproxy_downloadproxy[fileId]=66cf82ed0d25ac0eef3cf25f60e5d97b&tx_kmdownloadproxy_downloadproxy[documentId]=129692&tx_kmdownloadproxy_downloadproxy[system]=KonicaMinolta&tx_kmdownloadproxy_downloadproxy[language]=FR&type=1558521685" target="_blank">
+              <div class="card-info">
+                <span class="card-title">Konica Universal Driver</span>
+              </div>
+              <span class="btn">Télécharger</span>
+            </a>
+
+            <a class="card" href="https://support.ricoh.com/bb/pub_e/dr_ut_e/0001344/0001344034/V23200/driver_web_installer.exe" target="_blank">
+              <div class="card-info">
+                <span class="card-title">Ricoh C2000 Driver</span>
+              </div>
+              <span class="btn">Télécharger</span>
+            </a>
+          </div>
+        </section>
+
+        <p class="no-result" id="noResult">Aucun résultat ne correspond à votre recherche.</p>
+      </main>
+
+      <footer>SI-ONE — Espace Technicien</footer>
+    </div>
+  </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
 <script>
+  // Mise à jour de l'heure en temps réel
+  function updateTime() {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    document.getElementById('current-time').textContent = timeString;
+  }
+  setInterval(updateTime, 1000);
+  updateTime();
+
   // Toggle sidebar
   const sidebar = document.querySelector('.sidebar');
   const sidebarToggle = document.querySelector('.sidebar-toggle');
@@ -744,61 +1020,58 @@
       const targetId = link.getAttribute('href');
       const targetSection = document.querySelector(targetId);
       
-      // Close sidebar on mobile
       if (window.innerWidth <= 768) {
         sidebar.classList.add('collapsed');
       }
       
-      // Smooth scroll
       targetSection.scrollIntoView({
         behavior: 'smooth',
         block: 'start'
       });
       
-      // Update URL hash
       history.pushState(null, null, targetId);
       
-      // Update active nav link
       document.querySelectorAll('.sidebar-nav a').forEach(l => l.classList.remove('active'));
       link.classList.add('active');
     });
   });
 
   // Search functionality
-  const search = document.getElementById('search');
+  const searchInputs = document.querySelectorAll('#search, #search-header');
   const noResult = document.getElementById('noResult');
   const allCards = document.querySelectorAll('.card');
   const allSections = document.querySelectorAll('.section');
 
-  search.addEventListener('input', () => {
-    const term = search.value.trim().toLowerCase();
-    let visibleCount = 0;
+  searchInputs.forEach(input => {
+    input.addEventListener('input', () => {
+      const term = input.value.trim().toLowerCase();
+      let visibleCount = 0;
 
-    allCards.forEach(card => {
-      const brand = card.dataset.brand || '';
-      const title = card.querySelector('.card-title').textContent.toLowerCase();
-      const desc = card.querySelector('.card-desc') ? card.querySelector('.card-desc').textContent.toLowerCase() : '';
-      const isVisible = brand.includes(term) || title.includes(term) || desc.includes(term);
-      
-      card.style.display = isVisible ? 'flex' : 'none';
-      if (isVisible) visibleCount++;
-    });
-
-    // Hide/show sections based on visible cards
-    allSections.forEach(section => {
-      const sectionCards = section.querySelectorAll('.card');
-      let sectionVisible = false;
-      
-      sectionCards.forEach(card => {
-        if (card.style.display === 'flex') {
-          sectionVisible = true;
-        }
+      allCards.forEach(card => {
+        const brand = card.dataset.brand || '';
+        const title = card.querySelector('.card-title').textContent.toLowerCase();
+        const desc = card.querySelector('.card-desc') ? card.querySelector('.card-desc').textContent.toLowerCase() : '';
+        const isVisible = brand.includes(term) || title.includes(term) || desc.includes(term);
+        
+        card.style.display = isVisible ? 'flex' : 'none';
+        if (isVisible) visibleCount++;
       });
-      
-      section.style.display = sectionVisible ? 'block' : 'none';
-    });
 
-    noResult.classList.toggle('show', visibleCount === 0);
+      allSections.forEach(section => {
+        const sectionCards = section.querySelectorAll('.card');
+        let sectionVisible = false;
+        
+        sectionCards.forEach(card => {
+          if (card.style.display === 'flex') {
+            sectionVisible = true;
+          }
+        });
+        
+        section.style.display = sectionVisible ? 'block' : 'none';
+      });
+
+      noResult.classList.toggle('show', visibleCount === 0);
+    });
   });
 
   // Highlight sidebar nav based on scroll position
@@ -810,9 +1083,7 @@
     
     sections.forEach(section => {
       const sectionTop = section.offsetTop;
-      const sectionHeight = section.clientHeight;
-      
-      if (window.scrollY >= (sectionTop - 100)) {
+      if (window.scrollY >= (sectionTop - 120)) {
         current = section.getAttribute('id');
       }
     });
