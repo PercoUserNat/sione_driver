@@ -305,29 +305,12 @@
     transition: var(--transition);
     position: relative;
     overflow: hidden;
-    cursor: pointer;
-  }
-
-  .card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(37, 99, 235, 0.03) 0%, rgba(100, 116, 139, 0.02) 100%);
-    opacity: 0;
-    transition: var(--transition);
   }
 
   .card:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
     border-color: var(--primary-light);
-  }
-
-  .card:hover::before {
-    opacity: 1;
   }
 
   .card-info {
@@ -368,6 +351,8 @@
     margin-left: auto;
     flex-shrink: 0;
     text-decoration: none;
+    display: inline-flex;
+    align-items: center;
   }
 
   .btn:hover {
@@ -589,54 +574,54 @@
       <section id="applications" class="section">
         <h2 class="section-title">Applications</h2>
         <div class="grid">
-          <div class="card">
+          <a class="card" href="https://officeredir.microsoft.com/r/rlidO15C2RMediaDownload?p1=db&p2=en-US&p3=ProfessionalRetail" target="_blank">
             <div class="card-info">
               <span class="card-title">Office 2013</span>
             </div>
-            <a href="https://officeredir.microsoft.com/r/rlidO15C2RMediaDownload?p1=db&p2=en-US&p3=ProfessionalRetail" target="_blank" class="btn">Télécharger</a>
-          </div>
+            <span class="btn">Télécharger</span>
+          </a>
 
-          <div class="card">
+          <a class="card" href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/ProfessionalRetail.img" target="_blank">
             <div class="card-info">
               <span class="card-title">Office 2016</span>
             </div>
-            <a href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/ProfessionalRetail.img" target="_blank" class="btn">Télécharger</a>
-          </div>
+            <span class="btn">Télécharger</span>
+          </a>
 
-          <div class="card">
+          <a class="card" href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/Professional2019Retail.img" target="_blank">
             <div class="card-info">
               <span class="card-title">Office 2019</span>
             </div>
-            <a href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/Professional2019Retail.img" target="_blank" class="btn">Télécharger</a>
-          </div>
+            <span class="btn">Télécharger</span>
+          </a>
 
-          <div class="card">
+          <a class="card" href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/Professional2021Retail.img" target="_blank">
             <div class="card-info">
               <span class="card-title">Office 2021</span>
             </div>
-            <a href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/Professional2021Retail.img" target="_blank" class="btn">Télécharger</a>
-          </div>
+            <span class="btn">Télécharger</span>
+          </a>
 
-          <div class="card">
+          <a class="card" href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/OutlookRetail.img" target="_blank">
             <div class="card-info">
               <span class="card-title">Outlook 2016</span>
             </div>
-            <a href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/OutlookRetail.img" target="_blank" class="btn">Télécharger</a>
-          </div>
+            <span class="btn">Télécharger</span>
+          </a>
 
-          <div class="card">
+          <a class="card" href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/Outlook2019Retail.img" target="_blank">
             <div class="card-info">
               <span class="card-title">Outlook 2019</span>
             </div>
-            <a href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/Outlook2019Retail.img" target="_blank" class="btn">Télécharger</a>
-          </div>
+            <span class="btn">Télécharger</span>
+          </a>
 
-          <div class="card">
+          <a class="card" href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/Outlook2021Retail.img" target="_blank">
             <div class="card-info">
               <span class="card-title">Outlook 2021</span>
             </div>
-            <a href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/Outlook2021Retail.img" target="_blank" class="btn">Télécharger</a>
-          </div>
+            <span class="btn">Télécharger</span>
+          </a>
         </div>
       </section>
 
@@ -644,45 +629,45 @@
       <section id="outils" class="section">
         <h2 class="section-title">Outils Techniques</h2>
         <div class="grid">
-          <div class="card">
+          <a class="card" href="https://si-one.com/exe/codydesk.exe" target="_blank">
             <div class="card-info">
               <span class="card-title">CodyDesk</span>
               <span class="card-desc">Prise en main à distance</span>
             </div>
-            <a href="https://si-one.com/exe/codydesk.exe" target="_blank" class="btn">Télécharger</a>
-          </div>
+            <span class="btn">Télécharger</span>
+          </a>
 
-          <div class="card">
+          <a class="card" href="https://ninite.com/7zip-adoptjavax8-anydesk-chrome-firefox/ninite.exe" target="_blank">
             <div class="card-info">
               <span class="card-title">Ninite</span>
               <span class="card-desc">Installation groupée</span>
             </div>
-            <a href="https://ninite.com/7zip-adoptjavax8-anydesk-chrome-firefox/ninite.exe" target="_blank" class="btn">Télécharger</a>
-          </div>
+            <span class="btn">Télécharger</span>
+          </a>
 
-          <div class="card">
+          <a class="card" href="https://www.pdfgear.com/fr/download/" target="_blank">
             <div class="card-info">
               <span class="card-title">PDF Gear</span>
               <span class="card-desc">Gestion PDF</span>
             </div>
-            <a href="https://www.pdfgear.com/fr/download/" target="_blank" class="btn">Télécharger</a>
-          </div>
+            <span class="btn">Télécharger</span>
+          </a>
 
-          <div class="card">
+          <a class="card" href="https://download.advanced-ip-scanner.com/download/files/Advanced_IP_Scanner_2.5.4594.1.exe" target="_blank">
             <div class="card-info">
               <span class="card-title">IP Scanner</span>
               <span class="card-desc">Analyse réseau</span>
             </div>
-            <a href="https://download.advanced-ip-scanner.com/download/files/Advanced_IP_Scanner_2.5.4594.1.exe" target="_blank" class="btn">Télécharger</a>
-          </div>
+            <span class="btn">Télécharger</span>
+          </a>
 
-          <div class="card">
+          <a class="card" href="https://revouninstaller.b-cdn.net/ruf270/revosetup.exe" target="_blank">
             <div class="card-info">
               <span class="card-title">Revo Uninstaller</span>
               <span class="card-desc">Désinstallation</span>
             </div>
-            <a href="https://revouninstaller.b-cdn.net/ruf270/revosetup.exe" target="_blank" class="btn">Télécharger</a>
-          </div>
+            <span class="btn">Télécharger</span>
+          </a>
         </div>
       </section>
 
@@ -690,21 +675,21 @@
       <section id="vpn" class="section">
         <h2 class="section-title">VPN & Sécurité</h2>
         <div class="grid">
-          <div class="card">
+          <a class="card" href="https://filestore.fortinet.com/forticlient/downloads/FortiClientVPNInstaller.exe" target="_blank">
             <div class="card-info">
               <span class="card-title">FortiClient</span>
               <span class="card-desc">VPN Fortinet</span>
             </div>
-            <a href="https://filestore.fortinet.com/forticlient/downloads/FortiClientVPNInstaller.exe" target="_blank" class="btn">Télécharger</a>
-          </div>
+            <span class="btn">Télécharger</span>
+          </a>
 
-          <div class="card">
+          <a class="card" href="https://swupdate.openvpn.org/community/releases/OpenVPN-2.7.4-I002-amd64.msi" target="_blank">
             <div class="card-info">
               <span class="card-title">OpenVPN</span>
               <span class="card-desc">VPN Open Source</span>
             </div>
-            <a href="https://swupdate.openvpn.org/community/releases/OpenVPN-2.7.4-I002-amd64.msi" target="_blank" class="btn">Télécharger</a>
-          </div>
+            <span class="btn">Télécharger</span>
+          </a>
         </div>
       </section>
 
@@ -712,19 +697,19 @@
       <section id="imprimantes" class="section">
         <h2 class="section-title">Imprimantes</h2>
         <div class="grid">
-          <div class="card">
+          <a class="card" href="https://dl.konicaminolta.eu/fr/?tx_kmdownloadproxy_downloadproxy[fileId]=66cf82ed0d25ac0eef3cf25f60e5d97b&tx_kmdownloadproxy_downloadproxy[documentId]=129692&tx_kmdownloadproxy_downloadproxy[system]=KonicaMinolta&tx_kmdownloadproxy_downloadproxy[language]=FR&type=1558521685" target="_blank">
             <div class="card-info">
               <span class="card-title">Konica Universal Driver</span>
             </div>
-            <a href="https://dl.konicaminolta.eu/fr/?tx_kmdownloadproxy_downloadproxy[fileId]=66cf82ed0d25ac0eef3cf25f60e5d97b&tx_kmdownloadproxy_downloadproxy[documentId]=129692&tx_kmdownloadproxy_downloadproxy[system]=KonicaMinolta&tx_kmdownloadproxy_downloadproxy[language]=FR&type=1558521685" target="_blank" class="btn">Télécharger</a>
-          </div>
+            <span class="btn">Télécharger</span>
+          </a>
 
-          <div class="card">
+          <a class="card" href="https://support.ricoh.com/bb/pub_e/dr_ut_e/0001344/0001344034/V23200/driver_web_installer.exe" target="_blank">
             <div class="card-info">
               <span class="card-title">Ricoh C2000 Driver</span>
             </div>
-            <a href="https://support.ricoh.com/bb/pub_e/dr_ut_e/0001344/0001344034/V23200/driver_web_installer.exe" target="_blank" class="btn">Télécharger</a>
-          </div>
+            <span class="btn">Télécharger</span>
+          </a>
         </div>
       </section>
 
