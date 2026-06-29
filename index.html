@@ -1,6 +1,3 @@
-Voici le code HTML avec **uniquement** les variables CSS dans le bloc `:root` mises à jour selon ta nouvelle palette, en respectant les rôles des couleurs (orange pour les CTA/titres, cyan pour la navigation/états actifs) :
-
-```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -17,19 +14,18 @@ Voici le code HTML avec **uniquement** les variables CSS dans le bloc `:root` mi
   }
 
   :root {
-    /* Nouvelle palette */
-    --primary: #4AB3C8;         /* Bleu cyan — liens actifs, bordures gauche nav, section-title */
-    --primary-light: #6DCADB;
-    --primary-dark: #2A8FA3;
-    --secondary: #D4520A;       /* Orange — titres page, boutons .btn, bannière title, highlights */
-    --secondary-light: #E8703A;
-    --bg-dark: #16394E;         /* Bleu nuit — bannière, sidebar, footer, card background */
-    --bg: #1B4F6B;              /* Bleu pétrole — fond général body */
-    --white: #FFFFFF;
-    --text: #FFFFFF;
-    --text-light: #B0BEC5;
-    --border: #2C5F7A;          /* Bleu-gris — bordures cards, sidebar, séparateurs */
-    --shadow: rgba(74, 179, 200, 0.3);
+    --primary: #00FFB2;
+    --primary-light: #33FFC4;
+    --primary-dark: #00CC8E;
+    --secondary: #FF541B;
+    --secondary-light: #FF7A47;
+    --bg-dark: #090910;
+    --bg: #0F0F17;
+    --white: #F0F0F8;
+    --text: #F0F0F8;
+    --text-light: #5A5A7A;
+    --border: #1E1E2E;
+    --shadow: rgba(0, 255, 178, 0.15);
     --sidebar-width: 280px;
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -48,16 +44,17 @@ Voici le code HTML avec **uniquement** les variables CSS dans le bloc `:root` mi
   .banner {
     width: 100%;
     height: 60px;
-    background: var(--bg-dark);
+    background: #090910;
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 0; left: 0;
     z-index: 1000;
     display: flex;
     align-items: center;
     padding: 0 20px;
-    border-bottom: 1px solid var(--primary);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid #1E1E2E;
+    box-shadow:
+      0 1px 0 rgba(0,255,178,0.1),
+      0 4px 20px rgba(0,0,0,0.8);
     justify-content: space-between;
   }
 
@@ -70,7 +67,7 @@ Voici le code HTML avec **uniquement** les variables CSS dans le bloc `:root` mi
   .pixel-cat {
     width: 40px;
     height: 40px;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" fill="%230C3B2E"/><rect x="4" y="4" width="8" height="4" fill="%23FFBA00"/><rect x="3" y="8" width="2" height="2" fill="%23FFFFFF"/><rect x="7" y="8" width="2" height="2" fill="%23FFFFFF"/><rect x="11" y="8" width="2" height="2" fill="%23FFFFFF"/><rect x="4" y="6" width="8" height="2" fill="%236D9773"/><rect x="5" y="10" width="6" height="2" fill="%23FFBA00"/><circle cx="5" cy="7" r="0.5" fill="%23000000"/><circle cx="11" cy="7" r="0.5" fill="%23000000"/><path d="M6 9 L7 10 L8 9" stroke="%230C3B2E" stroke-width="0.5" fill="none"/></svg>');
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" fill="%23090910"/><rect x="4" y="4" width="8" height="4" fill="%23FF541B"/><rect x="3" y="8" width="2" height="2" fill="%23F0F0F8"/><rect x="7" y="8" width="2" height="2" fill="%23F0F0F8"/><rect x="11" y="8" width="2" height="2" fill="%23F0F0F8"/><rect x="4" y="6" width="8" height="2" fill="%2300FFB2"/><rect x="5" y="10" width="6" height="2" fill="%23FF541B"/><circle cx="5" cy="7" r="0.5" fill="%23000000"/><circle cx="11" cy="7" r="0.5" fill="%23000000"/><path d="M6 9 L7 10 L8 9" stroke="%231E1E2E" stroke-width="0.5" fill="none"/></svg>');
     background-repeat: no-repeat;
     background-size: contain;
     flex-shrink: 0;
@@ -80,9 +77,9 @@ Voici le code HTML avec **uniquement** les variables CSS dans le bloc `:root` mi
     font-family: 'Rajdhani', sans-serif;
     font-size: 1.4rem;
     font-weight: 700;
-    color: var(--secondary);
+    color: #FF541B;
     letter-spacing: 0.05em;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 0 16px rgba(255,84,27,0.5);
   }
 
   .banner-center {
@@ -109,7 +106,7 @@ Voici le code HTML avec **uniquement** les variables CSS dans le bloc `:root` mi
 
   #search:focus {
     border-color: var(--secondary);
-    box-shadow: 0 0 0 3px rgba(212, 82, 10, 0.2);
+    box-shadow: 0 0 0 3px rgba(255, 84, 27, 0.2);
   }
 
   .banner-right {
@@ -125,7 +122,7 @@ Voici le code HTML avec **uniquement** les variables CSS dans le bloc `:root` mi
     font-size: 0.85rem;
     color: var(--text-light);
     padding: 8px 12px;
-    background: rgba(74, 179, 200, 0.1);
+    background: rgba(0, 255, 178, 0.05);
     border-radius: 8px;
     border: 1px solid var(--border);
   }
@@ -150,7 +147,7 @@ Voici le code HTML avec **uniquement** les variables CSS dans le bloc `:root` mi
   }
 
   .github-btn:hover {
-    background: rgba(74, 179, 200, 0.2);
+    background: rgba(255, 84, 27, 0.1);
     border-color: var(--primary);
     color: var(--primary);
   }
@@ -169,16 +166,15 @@ Voici le code HTML avec **uniquement** les variables CSS dans le bloc `:root` mi
   /* Sidebar */
   .sidebar {
     width: var(--sidebar-width);
-    background: var(--bg-dark);
-    border-right: 1px solid var(--border);
+    background: #090910;
+    border-right: 1px solid #1E1E2E;
     position: fixed;
-    top: 60px;
-    left: 0;
+    top: 60px; left: 0;
     height: calc(100vh - 60px);
     z-index: 100;
     overflow-y: auto;
-    transition: var(--transition);
-    box-shadow: 2px 0 10px rgba(74, 179, 200, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 4px 0 24px rgba(0,0,0,0.6);
   }
 
   .sidebar.collapsed {
@@ -199,7 +195,7 @@ Voici le code HTML avec **uniquement** les variables CSS dans le bloc `:root` mi
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 2px 0 10px rgba(74, 179, 200, 0.2);
+    box-shadow: 2px 0 10px rgba(0, 255, 178, 0.15);
     transition: var(--transition);
     z-index: 101;
   }
@@ -247,7 +243,7 @@ Voici le code HTML avec **uniquement** les variables CSS dans le bloc `:root` mi
   .sidebar-header {
     padding: 24px 20px;
     border-bottom: 1px solid var(--border);
-    background: rgba(74, 179, 200, 0.1);
+    background: rgba(0, 255, 178, 0.05);
   }
 
   .sidebar-header .title {
@@ -271,38 +267,28 @@ Voici le code HTML avec **uniquement** les variables CSS dans le bloc `:root` mi
   .sidebar-nav a {
     display: block;
     padding: 12px 24px;
-    color: var(--text-light);
+    color: #5A5A7A;
     text-decoration: none;
     font-size: 0.9rem;
     font-weight: 500;
-    transition: var(--transition);
-    border-left: 3px solid transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-left: 2px solid transparent;
     position: relative;
-    overflow: hidden;
-  }
-
-  .sidebar-nav a::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(74, 179, 200, 0.1));
-    transition: var(--transition);
+    letter-spacing: 0.02em;
   }
 
   .sidebar-nav a:hover {
-    color: var(--primary);
-    background: rgba(74, 179, 200, 0.1);
-    border-left-color: var(--primary);
+    color: #00FFB2;
+    background: rgba(0,255,178,0.05);
+    border-left-color: rgba(0,255,178,0.5);
   }
 
   .sidebar-nav a.active {
-    color: var(--primary);
-    background: rgba(74, 179, 200, 0.2);
-    border-left-color: var(--primary);
+    color: #00FFB2;
+    background: rgba(0,255,178,0.08);
+    border-left-color: #00FFB2;
     font-weight: 600;
+    text-shadow: 0 0 12px rgba(0,255,178,0.3);
   }
 
   /* Main Content */
@@ -328,7 +314,7 @@ Voici le code HTML avec **uniquement** les variables CSS dans le bloc `:root` mi
     position: sticky;
     top: 60px;
     z-index: 50;
-    box-shadow: 0 2px 10px rgba(74, 179, 200, 0.2);
+    box-shadow: 0 2px 10px rgba(0, 255, 178, 0.15);
     gap: 20px;
   }
 
@@ -340,7 +326,7 @@ Voici le code HTML avec **uniquement** les variables CSS dans le bloc `:root` mi
     letter-spacing: -0.02em;
     text-align: center;
     flex: 1;
-    text-shadow: 0 0 8px rgba(212, 82, 10, 0.3);
+    text-shadow: 0 0 8px rgba(255, 84, 27, 0.3);
   }
 
   .no-header-title {
@@ -359,13 +345,12 @@ Voici le code HTML avec **uniquement** les variables CSS dans le bloc `:root` mi
 
   .page-title {
     font-family: 'Rajdhani', sans-serif;
-    font-size: 2.2rem;
+    font-size: 2.4rem;
     font-weight: 700;
-    color: var(--secondary);
+    color: #F0F0F8;
     margin-bottom: 8px;
     letter-spacing: -0.02em;
     text-align: center;
-    text-shadow: 0 0 10px rgba(212, 82, 10, 0.3);
   }
 
   .page-subtitle {
@@ -385,25 +370,24 @@ Voici le code HTML avec **uniquement** les variables CSS dans le bloc `:root` mi
     font-family: 'Rajdhani', sans-serif;
     font-size: 1.3rem;
     font-weight: 600;
-    color: var(--primary);
+    color: #00FFB2;
     margin-bottom: 20px;
     padding-bottom: 12px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid #1E1E2E;
     display: flex;
     align-items: center;
     gap: 10px;
     position: relative;
+    text-shadow: 0 0 20px rgba(0,255,178,0.4);
   }
 
   .section-title::before {
     content: '';
     position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 40px;
-    height: 3px;
-    background: var(--secondary);
-    border-radius: 0 0 8px 0;
+    bottom: -1px; left: 0;
+    width: 40px; height: 2px;
+    background: linear-gradient(90deg, #FF541B, #00FFB2);
+    border-radius: 2px;
   }
 
   .grid {
@@ -413,36 +397,40 @@ Voici le code HTML avec **uniquement** les variables CSS dans le bloc `:root` mi
   }
 
   .card {
-    background: var(--bg-dark);
-    border: 1px solid var(--border);
-    border-radius: 12px;
+    background: #16161F;
+    border: 1px solid #1E1E2E;
+    border-radius: 14px;
     padding: 20px;
     display: flex;
     align-items: center;
     gap: 14px;
     text-decoration: none;
     color: inherit;
-    transition: var(--transition);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+    backdrop-filter: blur(4px);
   }
 
   .card::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(212, 82, 10, 0.05) 0%, rgba(74, 179, 200, 0.1) 100%);
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg,
+      rgba(0,255,178,0.04) 0%,
+      rgba(255,84,27,0.06) 100%);
     opacity: 0;
-    transition: var(--transition);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(212, 82, 10, 0.15);
-    border-color: var(--primary);
+    border-color: #00FFB2;
+    box-shadow:
+      0 0 0 1px rgba(0,255,178,0.3),
+      0 8px 32px rgba(0,255,178,0.12),
+      0 2px 8px rgba(0,0,0,0.6);
   }
 
   .card:hover::before {
@@ -475,27 +463,27 @@ Voici le code HTML avec **uniquement** les variables CSS dans le bloc `:root` mi
   }
 
   .btn {
-    background: var(--secondary);
-    color: var(--white);
+    background: linear-gradient(135deg, #FF541B 0%, #FF7A47 100%);
+    color: #FFFFFF;
     border: none;
     border-radius: 8px;
     padding: 10px 16px;
     font-size: 0.8rem;
     font-weight: 600;
     cursor: pointer;
-    transition: var(--transition);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     margin-left: auto;
     flex-shrink: 0;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
-    box-shadow: 0 2px 4px rgba(212, 82, 10, 0.3);
+    box-shadow: 0 2px 12px rgba(255,84,27,0.35);
   }
 
   .btn:hover {
-    background: var(--secondary-light);
+    background: linear-gradient(135deg, #FF7A47 0%, #FF9A6A 100%);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(212, 82, 10, 0.3);
+    box-shadow: 0 4px 20px rgba(255,84,27,0.5);
   }
 
   .btn:active {
@@ -1114,4 +1102,3 @@ Voici le code HTML avec **uniquement** les variables CSS dans le bloc `:root` mi
 
 </body>
 </html>
-```
