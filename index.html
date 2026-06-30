@@ -622,6 +622,65 @@
     transform: translateY(0);
   }
 
+  /* Dropdown Menu */
+  .dropdown-btn {
+    background: var(--secondary);
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(59,130,246,0.3);
+    letter-spacing: 0.02em;
+    position: relative;
+  }
+
+  .dropdown-btn:hover {
+    background: var(--secondary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(59,130,246,0.45);
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 0;
+    min-width: 180px;
+    box-shadow: 0 6px 24px rgba(6,182,212,0.12), 0 2px 8px rgba(0,0,0,0.3);
+    z-index: 1000;
+    margin-top: -10px;
+  }
+
+  .dropdown-content a {
+    color: var(--text);
+    padding: 8px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.85rem;
+    transition: var(--transition);
+    border-left: 3px solid transparent;
+  }
+
+  .dropdown-content a:hover {
+    background: var(--bg-card-hover);
+    color: var(--primary);
+    border-left-color: var(--primary);
+  }
+
+  .dropdown-content.show {
+    display: block;
+  }
+
   .no-result {
     display: none;
     text-align: center;
@@ -763,13 +822,34 @@
     .section {
       scroll-margin-top: 120px;
     }
+
+    .dropdown-content {
+      position: static;
+      display: none;
+      width: 100%;
+      box-shadow: none;
+      border: none;
+      padding: 0;
+      margin-top: 0;
+    }
+
+    .dropdown-content.show {
+      display: block;
+    }
+
+    .dropdown-content a {
+      padding: 6px 12px;
+      background: var(--bg-card-hover);
+      margin: 2px 0;
+      border-radius: 4px;
+    }
   }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
 
-  <!-- Bannière fixe avec chat statique, recherche, heure et bouton GitHub -->
+  <!-- Bannière fixe -->
   <div class="banner">
     <div class="banner-left">
       <div class="pixel-cat"></div>
@@ -873,54 +953,62 @@
         <section id="applications" class="section">
           <h2 class="section-title">Applications Office</h2>
           <div class="grid">
-            <a class="card" href="https://officeredir.microsoft.com/r/rlidO15C2RMediaDownload?p1=db&p2=en-US&p3=ProfessionalRetail" target="_blank">
+            <!-- Office 365 -->
+            <a class="card" href="https://c2rsetup.officeapps.live.com/c2r/download.aspx?ProductreleaseID=O365HomePremRetail&language=en-us&platform=def&version=O16GA&source=MktDownloadForWinPage" target="_blank">
               <div class="card-info">
-                <span class="card-title">Office 2013</span>
+                <span class="card-title">Office 365</span>
+                <span class="card-desc">Dernière version</span>
               </div>
               <span class="btn">Télécharger</span>
             </a>
 
-            <a class="card" href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/ProfessionalRetail.img" target="_blank">
-              <div class="card-info">
-                <span class="card-title">Office 2016</span>
-              </div>
-              <span class="btn">Télécharger</span>
-            </a>
-
-            <a class="card" href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/Professional2019Retail.img" target="_blank">
-              <div class="card-info">
-                <span class="card-title">Office 2019</span>
-              </div>
-              <span class="btn">Télécharger</span>
-            </a>
-
-            <a class="card" href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/Professional2021Retail.img" target="_blank">
+            <!-- Office 2021 -->
+            <div class="card">
               <div class="card-info">
                 <span class="card-title">Office 2021</span>
               </div>
-              <span class="btn">Télécharger</span>
-            </a>
-
-            <a class="card" href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/OutlookRetail.img" target="_blank">
-              <div class="card-info">
-                <span class="card-title">Outlook 2016</span>
+              <button class="dropdown-btn" onclick="toggleDropdown(event)">Télécharger</button>
+              <div class="dropdown-content">
+                <a href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/Professional2021Retail.img" target="_blank">Suite complète</a>
+                <a href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/Outlook2021Retail.img" target="_blank">Outlook 2021</a>
               </div>
-              <span class="btn">Télécharger</span>
-            </a>
+            </div>
 
-            <a class="card" href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/Outlook2019Retail.img" target="_blank">
+            <!-- Office 2019 -->
+            <div class="card">
               <div class="card-info">
-                <span class="card-title">Outlook 2019</span>
+                <span class="card-title">Office 2019</span>
               </div>
-              <span class="btn">Télécharger</span>
-            </a>
+              <button class="dropdown-btn" onclick="toggleDropdown(event)">Télécharger</button>
+              <div class="dropdown-content">
+                <a href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/Professional2019Retail.img" target="_blank">Suite complète</a>
+                <a href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/Outlook2019Retail.img" target="_blank">Outlook 2019</a>
+              </div>
+            </div>
 
-            <a class="card" href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/Outlook2021Retail.img" target="_blank">
+            <!-- Office 2016 -->
+            <div class="card">
               <div class="card-info">
-                <span class="card-title">Outlook 2021</span>
+                <span class="card-title">Office 2016</span>
               </div>
-              <span class="btn">Télécharger</span>
-            </a>
+              <button class="dropdown-btn" onclick="toggleDropdown(event)">Télécharger</button>
+              <div class="dropdown-content">
+                <a href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/ProfessionalRetail.img" target="_blank">Suite complète</a>
+                <a href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/OutlookRetail.img" target="_blank">Outlook 2016</a>
+              </div>
+            </div>
+
+            <!-- Office 2013 -->
+            <div class="card">
+              <div class="card-info">
+                <span class="card-title">Office 2013</span>
+              </div>
+              <button class="dropdown-btn" onclick="toggleDropdown(event)">Télécharger</button>
+              <div class="dropdown-content">
+                <a href="https://officeredir.microsoft.com/r/rlidO15C2RMediaDownload?p1=db&p2=en-US&p3=ProfessionalRetail" target="_blank">Suite complète</a>
+                <a href="https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-US/OutlookRetail.img" target="_blank">Outlook 2013</a>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -1131,7 +1219,12 @@
         const brand = card.dataset.brand || '';
         const title = card.querySelector('.card-title').textContent.toLowerCase();
         const desc = card.querySelector('.card-desc') ? card.querySelector('.card-desc').textContent.toLowerCase() : '';
-        const isVisible = brand.includes(term) || title.includes(term) || desc.includes(term);
+        const dropdownLinks = card.querySelectorAll('.dropdown-content a');
+        let dropdownText = '';
+        dropdownLinks.forEach(link => {
+          dropdownText += link.textContent.toLowerCase() + ' ';
+        });
+        const isVisible = brand.includes(term) || title.includes(term) || desc.includes(term) || dropdownText.includes(term);
 
         card.style.display = isVisible ? 'flex' : 'none';
         if (isVisible) visibleCount++;
@@ -1202,6 +1295,31 @@
   const closeSidebarBtn = document.getElementById('closeSidebarBtn');
   closeSidebarBtn.addEventListener('click', () => {
     sidebar.classList.add('collapsed');
+  });
+
+  // Dropdown toggle
+  function toggleDropdown(event) {
+    event.stopPropagation();
+    const dropdownContent = event.target.nextElementSibling;
+    
+    // Fermer tous les autres dropdowns ouverts
+    document.querySelectorAll('.dropdown-content').forEach(content => {
+      if (content !== dropdownContent) {
+        content.classList.remove('show');
+      }
+    });
+    
+    // Toggle le dropdown cliqué
+    dropdownContent.classList.toggle('show');
+  }
+
+  // Fermer les dropdowns si on clique ailleurs
+  document.addEventListener('click', (e) => {
+    if (!e.target.classList.contains('dropdown-btn') && !e.target.closest('.dropdown-content')) {
+      document.querySelectorAll('.dropdown-content').forEach(content => {
+        content.classList.remove('show');
+      });
+    }
   });
 </script>
 
